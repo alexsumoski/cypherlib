@@ -18,11 +18,8 @@ const IndexPage: React.FC<PageProps> = ({ projects, courses }) => {
   return (
     <>
       <Head>
-        <title>Alex Sumoski | Front-end Developer</title>
-        <meta
-          name="description"
-          content="Experienced front-end developer specialized in Angular and React. Delivering efficient UX/UI solutions with a structured approach."
-        />
+        <title>Cypherlib</title>
+        <meta name="description" content="content." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="../favicon.svg" />
       </Head>
