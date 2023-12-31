@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'AvertaDemoPE';
+    src: url('/fonts/AvertaDemoPE-ExtraboldItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'AvertaDemoPE';
+    src: url('/fonts/AvertaDemoPE-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  

@@ -8,12 +8,10 @@ import Head from "next/head";
 import { getCypherpunks } from "@/app/lib/contentful";
 
 interface PageProps {
-  projects: any[];
-  courses: any[];
+  cypherpunks: any[];
 }
 
-const IndexPage: React.FC<PageProps> = ({ projects, courses }) => {
-  const [isModalOpen, setModalOpen] = useState(false);
+const IndexPage: React.FC<PageProps> = ({ cypherpunks }) => {
 
   return (
     <>
@@ -23,11 +21,15 @@ const IndexPage: React.FC<PageProps> = ({ projects, courses }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="../favicon.svg" />
       </Head>
-      <Container>
         <Layout>
           <div className="mt-[98px] grid gap-8">Layout</div>
+          <div className="font-averta font-bold italic">
+            This text will use Averta Extra Bold Italic
+          </div>
+          <div className="font-averta font-normal">
+            This text will use Averta Regular
+          </div>
         </Layout>
-      </Container>
     </>
   );
 };

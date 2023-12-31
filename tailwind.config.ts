@@ -13,6 +13,14 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      fontFamily: {
+        averta: ['AvertaDemoPE', 'sans-serif']
+      },
+      letterSpacing: {
+        'extra-tight': '-0.05em',
+        'ultra-wide': '0.6em',
+        // Add other custom sizes as needed
+      }
     },
   },
   plugins: [],
