@@ -1,8 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import logo from "../assets/logo.svg";
-import {} from "react-icons/fa";
-import { motion } from "framer-motion";
 import HamburgerMenu from "../components/HambugerMenu";
 
 const Header: React.FC = () => {
@@ -22,10 +19,10 @@ const Header: React.FC = () => {
         <Image
           src="/images/cl-logo.svg"
           alt="CL Logo"
-          width={70}
+          width={50}
           height={50}
         />
-        <span className="tracking-ultra-wide text-gray-500 text-sm">THE CYPHERPUNK LIBRARY</span>
+        <span className="tracking-ultra-wide text-gray-400 text-sm">THE CYPHERPUNK LIBRARY</span>
         <HamburgerMenu />
       </div>
     </header>
