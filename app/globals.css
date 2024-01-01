@@ -62,3 +62,10 @@ body {
   object-fit: cover;
   z-index: 2;
 }
+
+.fade-bottom::after {
+  @apply absolute bottom-0 left-0 w-full h-[50%];
+  content: '';
+  background: linear-gradient(to bottom, transparent, black, black);
+  pointer-events: none;
+}
