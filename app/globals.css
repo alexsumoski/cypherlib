@@ -30,6 +30,13 @@
   border-radius: 10px;
 }
 
+html {
+  overflow-x: hidden;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overscroll-behavior: none;
+}
 
 body {
   font-family: 'Montserrat', sans-serif;
@@ -41,6 +48,73 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+    overflow: hidden;
+}
+
+body:after {
+  animation: grain 6s steps(10) infinite;
+  background-image: url(/grain.png);
+  background-repeat: repeat;
+  content: "";
+  height: 300%;
+  left: -100%;
+  opacity: .06;
+  pointer-events: none;
+  position: fixed;
+  top: -100%;
+  width: 300%;
+  will-change: transform;
+  z-index: 1000 !important;
+}
+
+*:after, *:before {
+  box-sizing: border-box;
+}
+
+@keyframes grain {
+  0% {
+      transform: translate(20%,-15%)
+  }
+
+  10% {
+      transform: translate(-20%,-15%)
+  }
+
+  20% {
+      transform: translate(20%,-5%)
+  }
+
+  30% {
+      transform: translate(-20%,-5%)
+  }
+
+  40% {
+      transform: translate(20%,5%)
+  }
+
+  50% {
+      transform: translate(-20%,5%)
+  }
+
+  60% {
+      transform: translate(20%,15%)
+  }
+
+  70% {
+      transform: translate(-20%,15%)
+  }
+
+  80% {
+      transform: translate(20%,5%)
+  }
+
+  90% {
+      transform: translate(-20%,5%)
+  }
+
+  to {
+      transform: translate(20%,-5%)
+  }
 }
 
 .headings-image {
@@ -50,7 +124,7 @@ body {
   object-fit: fill;
   position: relative;
   height: 200px;
-  margin-top: 10%;
+  margin-top: 15%;
 }
 
 .background-image {

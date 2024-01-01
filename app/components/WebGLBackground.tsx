@@ -85,7 +85,7 @@ const WebGLBackground: React.FC = () => {
         }
       }
       renderer.render(scene, camera);
-      count += 0.05;
+      count += 0.035;
     };
 
     init();

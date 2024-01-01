@@ -29,22 +29,13 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks }) => {
         <link rel="icon" href="../favicon.svg" />
       </Head>
       <div className="absolute">
-        <div className="relative opacity-70 fade-bottom">
+        <div className="relative opacity-40 fade-bottom">
           <WebGLBackground />
         </div>
       </div>
 
       <Layout>
-        <div className="h-[100vh] flex justify-center top-0">
-          {/* <div className="background-image">
-            <Image
-              src="/bg.jpeg"
-              alt="Background"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div> */}
-
+        <div className="h-[100vh] flex justify-center">
           <div className="headings-image">
             <Image
               src="/text.svg"
@@ -54,10 +45,6 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks }) => {
               className="xl:px-20 md:px-8 sm:px-2 px-4 py-6"
             />
           </div>
-
-          {/* Uncomment and adjust your headings and other content as needed */}
-          {/* <h1 className="mt-[98px] font-instrument text-[190px] font-black max-h-[190px]">CYPHERLIB</h1>
-          <span className="tracking-ultra-wide text-gray-500 text-lg">THE CYPHERPUNK LIBRARY</span> */}
         </div>
       </Layout>
     </>
