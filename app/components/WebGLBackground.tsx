@@ -31,12 +31,14 @@ const WebGLBackground: React.FC = () => {
       canvas.width = 16; // Size of the canvas
       canvas.height = 16;
       const context = canvas.getContext("2d");
-      context?.beginPath();
-      context?.arc(8, 8, 8, 0, Math.PI * 2, false);
-      context.fillStyle = "#FFFFFF";
-      context?.fill();
 
-      // Use the canvas as a texture
+      if (context) {
+        context.beginPath();
+        context.arc(8, 8, 8, 0, Math.PI * 2, false);
+        context.fillStyle = "#FFFFFF";
+        context.fill();
+      }
+
       const particleTexture = new THREE.CanvasTexture(canvas);
       const material = new THREE.SpriteMaterial({ map: particleTexture });
 
@@ -59,7 +61,7 @@ const WebGLBackground: React.FC = () => {
     };
 
     const onWindowResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      //@ts-ignore
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     };

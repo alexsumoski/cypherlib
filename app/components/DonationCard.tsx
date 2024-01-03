@@ -13,7 +13,6 @@ const DonationCard: React.FC = () => {
 
   return (
     <div className="max-w-sm mb-8 text-white rounded-lg shadow-md">
-      <h3 className="text-lg font-bold mb-2">Donate Bitcoin</h3>
       <p className="mb-4 text-sm">
         Support Cypherlib by donating to our Bitcoin wallet:
       </p>

@@ -20,7 +20,11 @@ const config: Config = {
       letterSpacing: {
         'extra-tight': '-0.05em',
         'ultra-wide': '0.6em',
-      }
+        'mega-wide': '1.8em',
+      },
+      lineHeight: {
+        'tall': '5',
+      },
     },
   },
   plugins: [],
