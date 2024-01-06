@@ -3,17 +3,23 @@ import { GetStaticProps } from "next";
 import Layout from "@/pages/layout";
 import { motion } from "framer-motion";
 import Head from "next/head";
-import { getCypherpunks } from "@/app/lib/contentful";
 import DonationCard from "@/app/components/DonationCard";
 import Image from "next/image";
 import WebGLBackground from "@/app/components/WebGLBackground";
 import Card from "@/app/components/Card";
+// import Modal from "@/app/components/Modal";
+import { useState } from "react";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
 interface PageProps {
   cypherpunks: any[];
 }
 
 const IndexPage: React.FC<PageProps> = ({ cypherpunks }) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const toggleModal = () => setModalOpen(!isModalOpen);
+
   return (
     <>
       <div className="absolute">
@@ -73,7 +79,27 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks }) => {
             <h4 className="tracking-mega-wide leading-tall">
               PRIVACY <br /> IS <br /> NECESSARY
             </h4>
+            {/* <Modal isOpen={isModalOpen} onClose={toggleModal}>
+              <p>Modal Content Here</p>
+            </Modal>{" "} */}
           </div>
+        </Container>
+
+        <Container>
+          <motion.div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-6 my-80">
+            {cypherpunks.map((cypherpunk, index) => (
+              <div key={index} className="md:col-span-1">
+                <Card
+                  title={cypherpunk.name}
+                  tooltipText="Tooltip Text"
+                  description={cypherpunk.description}
+                >
+                  {cypherpunk.content &&
+                    documentToReactComponents(cypherpunk.content)}
+                </Card>
+              </div>
+            ))}
+          </motion.div>
         </Container>
 
         <Container>
@@ -100,7 +126,8 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks }) => {
 
 export default IndexPage;
 
-export const getStaticProps: GetStaticProps = async () => {
-  const cypherpunks = await getCypherpunks();
-  return { props: { cypherpunks } };
-};
+// export const getStaticProps: GetStaticProps = async () => {
+//   const cypherpunks = await getCypherpunks();
+//   console.log(cypherpunks); // Check the structure of the returned data
+//   return { props: { cypherpunks } };
+// };
