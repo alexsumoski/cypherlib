@@ -16,7 +16,7 @@ const WebGLBackground: React.FC = () => {
 
     const init = () => {
       camera = new THREE.PerspectiveCamera(
-        75,
+        100,
         window.innerWidth / window.innerHeight,
         1,
         10000
@@ -35,7 +35,7 @@ const WebGLBackground: React.FC = () => {
       if (context) {
         context.beginPath();
         context.arc(8, 8, 8, 0, Math.PI * 2, false);
-        context.fillStyle = "#FFFFFF";
+        context.fillStyle = "#6366f1 ";
         context.fill();
       }
 
@@ -79,7 +79,7 @@ const WebGLBackground: React.FC = () => {
         for (let iy = 0; iy < AMOUNTY; iy++) {
           const particle = particles[i++];
           particle.position.y =
-            Math.sin((ix + count) * 0.3) * 50 +
+            Math.sin((ix + count) * 0.3) * 30 +
             Math.sin((iy + count) * 0.5) * 50;
           particle.scale.x = particle.scale.y =
             (Math.sin((ix + count) * 0.3) + 1) * 4 +
@@ -87,7 +87,7 @@ const WebGLBackground: React.FC = () => {
         }
       }
       renderer.render(scene, camera);
-      count += 0.035;
+      count += 0.025;
     };
 
     init();

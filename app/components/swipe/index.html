@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Material You Slider</title>
+</head>
+
+<body>
+  <div id="app">
+    <div class="demo-nav">
+      <label>
+        <span>slidesPerView:</span>
+        <span class="spv">2</span>
+        <span class="dropdown">
+          <span data-value="1">1</span>
+          <span data-value="2">2</span>
+          <span data-value="3">3</span>
+          <span data-value="4">4</span>
+          <span data-value="5">5</span>
+        </span>
+      </label>
+      <label>
+        <input type="checkbox">
+        <span>centeredSlides</span>
+      </label>
+    </div>
+    <div class="demo-slider">
+      <!-- Material slider -->
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <!-- Wrap each slide content with "swiper-material-wrapper" and "swiper-material-content" elements -->
+            <div class="swiper-material-wrapper">
+              <div class="swiper-material-content">
+                <!-- Use data-swiper-material-scale to add scale effect on required elements -->
+                <img class="demo-material-image" data-swiper-material-scale="1.25" src="images/01.jpg" />
+                <!-- Use swiper-material-animate-opacity class to add opacity animation on required elements -->
+                <span class="demo-material-label swiper-material-animate-opacity">Slide 1</span>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="swiper-material-wrapper">
+              <div class="swiper-material-content">
+                <img class="demo-material-image" data-swiper-material-scale="1.25" src="images/02.jpg" />
+                <span class="demo-material-label swiper-material-animate-opacity">Slide 2</span>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="swiper-material-wrapper">
+              <div class="swiper-material-content">
+                <img class="demo-material-image" data-swiper-material-scale="1.25" src="images/03.jpg" />
+                <span class="demo-material-label swiper-material-animate-opacity">Slide
+                  3</span>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="swiper-material-wrapper">
+              <div class="swiper-material-content">
+                <img class="demo-material-image" data-swiper-material-scale="1.25" src="images/04.jpg" />
+                <span class="demo-material-label swiper-material-animate-opacity">Slide 4</span>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="swiper-material-wrapper">
+              <div class="swiper-material-content">
+                <img class="demo-material-image" data-swiper-material-scale="1.25" src="images/05.jpg" />
+                <span class="demo-material-label swiper-material-animate-opacity">Slide 5</span>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="swiper-material-wrapper">
+              <div class="swiper-material-content">
+                <img class="demo-material-image" data-swiper-material-scale="1.25" src="images/06.jpg" />
+                <span class="demo-material-label swiper-material-animate-opacity">Slide 6</span>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="swiper-material-wrapper">
+              <div class="swiper-material-content">
+                <img class="demo-material-image" data-swiper-material-scale="1.25" src="images/07.jpg" />
+                <span class="demo-material-label swiper-material-animate-opacity">Slide 7</span>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="swiper-material-wrapper">
+              <div class="swiper-material-content">
+                <img class="demo-material-image" data-swiper-material-scale="1.25" src="images/08.jpg" />
+                <span class="demo-material-label swiper-material-animate-opacity">Slide 8</span>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="swiper-material-wrapper">
+              <div class="swiper-material-content">
+                <img class="demo-material-image" data-swiper-material-scale="1.25" src="images/09.jpg" />
+                <span class="demo-material-label swiper-material-animate-opacity">Slide 9</span>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="swiper-material-wrapper">
+              <div class="swiper-material-content">
+                <img class="demo-material-image" data-swiper-material-scale="1.25" src="images/10.jpg" />
+                <span class="demo-material-label swiper-material-animate-opacity">Slide 10</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import Swiper from 'swiper';
+    /**
+     * import Material effect module
+     */
+    import EffectMaterial from './effect-material.esm.js';
+    /**
+     * import Swiper core styles
+     */
+    import 'swiper/scss';
+    /**
+     * import Material effect styles
+     */
+    import './effect-material.scss';
+    /**
+     * Custom local demo styles
+     */
+    import './index.scss';
+    /**
+     * Init Swiper
+     */
+    const swiper = new Swiper('.swiper', {
+      // pass EffectMaterial module to modules
+      modules: [EffectMaterial],
+      // specify "material" effect
+      effect: 'material',
+      // material effect parameters
+      materialEffect: {
+        slideSplitRatio: 0.65,
+      },
+      grabCursor: true,
+      slidesPerView: 2,
+      spaceBetween: 16,
+      speed: 600,
+    });
+    const dropdown = document.querySelector('.dropdown')
+    const checkbox = document.querySelector('input')
+
+    dropdown.parentElement.addEventListener('click', (e) => {
+      if (dropdown.contains(e.target)) return;
+      dropdown.classList.toggle('visible')
+    })
+    dropdown.addEventListener('click', (e) => {
+      const slidesPerView = parseInt(e.target.getAttribute('data-value'), 10);
+      swiper.params.slidesPerView = slidesPerView;
+      swiper.update();
+      dropdown.classList.remove('visible')
+      document.querySelector('.spv').textContent = slidesPerView
+    });
+
+    checkbox.addEventListener('change', (e) => {
+      const centeredSlides = e.target.checked;
+      swiper.params.centeredSlides = centeredSlides;
+      swiper.update();
+    });
+  </script>
+</body>
+
+</html>

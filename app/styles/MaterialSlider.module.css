@@ -1,0 +1,46 @@
+.gameSection {
+    padding: 60px 50px;
+    height: 400px;
+    position: relative;
+  }
+  
+  .lineTitle {
+    /* Add your styles for line-title here */
+  }
+  
+  .item {
+    margin: 0 15px;
+    width: 320px;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.4s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .item.active {
+    width: 500px;
+    box-shadow: 12px 40px 40px rgba(0, 0, 0, 0.25);
+  }
+  
+  .itemDesc {
+    padding: 0 24px 12px;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    transform: translateY(calc(100% - 54px));
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .item.active .itemDesc {
+    transform: none;
+  }
+  
+  /* Add more CSS based on your original styles */
+  

@@ -1,124 +1,127 @@
 import Container from "../app/layout/Container";
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import Layout from "@/pages/layout";
-import { motion } from "framer-motion";
-import Head from "next/head";
-import DonationCard from "@/app/components/DonationCard";
 import Image from "next/image";
-import WebGLBackground from "@/app/components/WebGLBackground";
 import Card from "@/app/components/Card";
-// import Modal from "@/app/components/Modal";
 import { useState } from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { fetchCypherpunks, fetchTools } from "@/app/lib/contentful";
+import Carousel from "@/app/components/Carousel";
+import { motion, AnimatePresence } from "framer-motion";
+import { useTab } from "@/app/lib/TabContext";
+import PrivacyToolsSection from "@/app/sections/PrivacyToolsSection";
+import Quote from "@/app/components/Quote";
 
 interface PageProps {
   cypherpunks: any[];
+  tools: any[];
 }
 
-const IndexPage: React.FC<PageProps> = ({ cypherpunks }) => {
-  const [isModalOpen, setModalOpen] = useState(false);
+const slides = [
+  <Card
+    title="Title"
+    imageUrl="/public/img.webp"
+    subtitle="Subtitle"
+    category="Category"
+    linkHref="link"
+    text="text"
+    linkText="link"
+  ></Card>,
+  <Card
+    title="Title"
+    imageUrl="/public/img.webp"
+    subtitle="Subtitle"
+    category="Category"
+    linkHref="link"
+    text="text"
+    linkText="link"
+  ></Card>,
+];
 
-  const toggleModal = () => setModalOpen(!isModalOpen);
+const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools }) => {
+  const { activeTab } = useTab();
+
+  // const handleTabChange = (newTab: string) => {
+  //   setActiveTab(newTab);
+  //   console.log("Active tab is now:", newTab);
+  // };
+
+  const HeroSection = () => (
+    <Container>
+      <div className="flex flex-col w-full">
+        <div className="flex flex-col min-h-full mt-[110px]">
+          <h1 className="text-9xl font-black uppercase">
+            Home Section <br />
+            <span className="font-thin text-6xl">the Cypherpunk Library</span>
+          </h1>
+        </div>
+        {/* <div className="flex">
+          <div className="flex flex-[0.5] sm:scale-50 lg:scale-75 xl:scale-100">
+            <Quote />
+          </div>
+          <div className="flex flex-[0.5]">Other Content</div>
+        </div> */}
+
+        <div className="text-center my-60">
+          <h1 className="font-instrument text-7xl font-black mb-24">
+            CYPHERPUNK <br /> MANIFESTO
+          </h1>
+          <h4 className="tracking-mega-wide leading-tall">
+            PRIVACY <br /> IS <br /> NECESSARY
+          </h4>
+        </div>
+      </div>
+    </Container>
+  );
+
+  const CypherpunkSection = () => (
+    <Container>
+      <div className="flex flex-col min-h-full mt-[110px]">
+        <h1 className="text-9xl font-black uppercase">Cypherpunk Museum</h1>
+      </div>
+    </Container>
+  );
 
   return (
     <>
-      <div className="absolute">
-        <div className="relative opacity-40 fade-bottom">
-          <WebGLBackground />
-        </div>
-      </div>
-
       <Layout>
-        {/* HERO SECTION */}
-        <div className="headings-image">
-          <Image
-            src="/text.svg"
-            alt="Heading"
-            layout="fill"
-            objectFit="contain"
-            className="xl:px-20 md:px-8 sm:px-2 px-4 py-6"
-          />
-        </div>
+        <AnimatePresence mode="wait">
+          {activeTab === "home" && (
+            <motion.div
+              key="home"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <HeroSection />
+            </motion.div>
+          )}
 
-        {/* CARDS SECTION */}
-        <Container>
-          <motion.div
-            initial={{ opacity: 0.3 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: false, amount: 0.1 }}
-            transition={{ duration: 0.4 }}
-            className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-6 my-80"
-          >
-            <div className="md:col-span-1">
-              {/* <Card
-                title="Privacy Tools"
-                tooltipText="Privacy Tools"
-                description="Description"
-              >
-                Children content
-              </Card> */}
-            </div>
+          {activeTab === "privacy-tools" && (
+            <motion.div
+              key="privacy-tools"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <PrivacyToolsSection tools={tools} />
+            </motion.div>
+          )}
 
-            <div className="md:col-span-1">
-              {/* <Card
-                title="Cypherpunk Museum"
-                tooltipText="Privacy Tools"
-                description="Description"
-              >
-                Children content
-              </Card> */}
-            </div>
-          </motion.div>
-        </Container>
-
-        <Container>
-          <div className="text-center">
-            <h1 className="font-instrument text-7xl font-black mb-24">
-              CYPHERPUNK <br /> MANIFESTO
-            </h1>
-            <h4 className="tracking-mega-wide leading-tall">
-              PRIVACY <br /> IS <br /> NECESSARY
-            </h4>
-            {/* <Modal isOpen={isModalOpen} onClose={toggleModal}>
-              <p>Modal Content Here</p>
-            </Modal>{" "} */}
-          </div>
-        </Container>
-
-        <Container>
-          <motion.div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-6 my-80">
-            {cypherpunks.map((cypherpunk, index) => (
-              <div key={index} className="md:col-span-1">
-                <Card
-                  title={cypherpunk.name}
-                  tooltipText="Tooltip Text"
-                  description={cypherpunk.description}
-                >
-                  {cypherpunk.content &&
-                    documentToReactComponents(cypherpunk.content)}
-                </Card>
-              </div>
-            ))}
-          </motion.div>
-        </Container>
-
-        <Container>
-          <div className="relative h-[1000px] flex justify-center items-center">
-            <Image
-              src="/crt.png"
-              alt="Heading"
-              layout="fill"
-              objectFit="contain"
-              className="z-0"
-            />
-            {/* <div className="z-10">
-              <h5 style={{ fontFamily: "Times New Roman, Times, serif" }}>
-                Enter password:
-              </h5>
-              <input type="password" className="w-full" />
-            </div> */}
-          </div>
-        </Container>
+          {activeTab === "cypherpunks" && (
+            <motion.div
+              key="cypherpunks"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <CypherpunkSection />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Layout>
     </>
   );
@@ -126,8 +129,9 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks }) => {
 
 export default IndexPage;
 
-// export const getStaticProps: GetStaticProps = async () => {
-//   const cypherpunks = await getCypherpunks();
-//   console.log(cypherpunks); // Check the structure of the returned data
-//   return { props: { cypherpunks } };
-// };
+export const getStaticProps: GetStaticProps = async () => {
+  const profiles = await fetchCypherpunks();
+  const tools = await fetchTools();
+
+  return { props: { cypherpunks: profiles, tools: tools } };
+};

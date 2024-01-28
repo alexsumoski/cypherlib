@@ -4,6 +4,7 @@ import React from "react";
 import Header from "../app/layout/Header";
 import Footer from "../app/layout/Footer";
 import Head from "next/head";
+import BG from "@/app/components/Spline";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -27,6 +28,12 @@ const Layout: React.FC<LayoutProps> = ({ children, title, description }) => {
         <link rel="icon" href="/favicon.svg" />
       </Head>
       <Header />
+      <div className="absolute w-[120%] h-full scale-115 -left-48 top-[30%]">
+        <div className="relative fade-bottom -z-10 w-full">
+          {/* <WebGLBackground /> */}
+          {/* <BG /> */}
+        </div>
+      </div>
       {children}
       <Footer />
     </div>

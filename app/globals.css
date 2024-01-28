@@ -16,18 +16,43 @@
   }
 }
 
+@font-face {
+  font-family: 'RocGrotesk';
+  src: url('/fonts/rocgrotesk-thin.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'RocGrotesk';
+  src: url('/fonts/rocgrotesk-regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'RocGrotesk';
+  src: url('/public/fonts/rocgrotesk-medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'RocGrotesk';
+  src: url('/public/fonts/rocgrotesk-heavy.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'RocGrotesk';
+  src: url('/public/fonts/rocgrotesk-extrabold.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: black;
-}
-
-::-webkit-scrollbar-thumb {
-  background: black;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  display: none;
 }
 
 html {
@@ -36,10 +61,12 @@ html {
   width: 100%;
   box-sizing: border-box;
   overscroll-behavior: none;
+  scroll-behavior: smooth;
+
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'RocGrotesk', sans-serif;
 
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -58,7 +85,7 @@ body:after {
   content: "";
   height: 300%;
   left: -100%;
-  opacity: .06;
+  opacity: .03;
   pointer-events: none;
   position: fixed;
   top: -100%;
@@ -119,18 +146,55 @@ body:after {
 
 .headings-image {
   z-index: 3;
-  width: 100%;
-  min-width: 100%;
+  width: 70%;
+  min-width: 70%;
   mix-blend-mode: difference;
   object-fit: fill;
   position: relative;
   height: 30vh;
   margin-top: 15%;
 }
-
 .fade-bottom::after {
   @apply absolute bottom-0 left-0 w-full h-[50%];
   content: '';
   background: linear-gradient(to bottom, transparent, black, black);
   pointer-events: none;
+}
+
+.container {
+  max-width: 1024px;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+#container {
+  position: absolute;
+  margin: auto;
+  width: 100vw;
+  height: 80pt;
+  top: 0;
+  bottom: 0;
+  filter: blur(0.6px);
+}
+
+.animatedBackground {
+  margin: 0px;
+  color: #fff;
+  height: 100vh;
+  background-image: 
+    linear-gradient(115deg, rgb(211 255 215), rgb(0 0 0)), 
+    radial-gradient(90% 100% at calc(50% + var(--posX)) calc(0% + var(--posY)), rgb(200 200 200), rgb(22 0 45)), 
+    radial-gradient(100% 100% at calc(80% - var(--posX)) calc(0% - var(--posY)), rgb(250 255 0), rgb(36 0 0)), 
+    radial-gradient(150% 210% at calc(100% + var(--posX)) calc(0% + var(--posY)), rgb(20 175 125), rgb(0 10 255)), 
+    radial-gradient(100% 100% at calc(100% - var(--posX)) calc(30% - var(--posY)), rgb(255 77 0), rgb(0 200 255)), 
+    linear-gradient(60deg, rgb(255 0 0), rgb(120 86 255));
+  background-blend-mode: overlay, overlay, difference, difference, difference, normal;
+}
+
+.swiper-pagination-bullet {
+background-color: white !important;
+}
+
+.swiper-pagination-bullet .swiper-pagination-bullet-active {
+  background-color: white !important;
 }

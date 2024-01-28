@@ -6,8 +6,10 @@ const Footer: React.FC = () => {
   const currentDate = new Date().getFullYear();
   return (
     <Container>
-      <DonationCard />
-      <p className="text-gray-500">Cypherlib © {currentDate}</p>
+      <div className="mt-80">
+        <DonationCard />
+        <p className="text-gray-500">Cypherlib © {currentDate}</p>
+      </div>
     </Container>
   );
 };
