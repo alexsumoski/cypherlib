@@ -62,11 +62,11 @@ html {
   box-sizing: border-box;
   overscroll-behavior: none;
   scroll-behavior: smooth;
-
 }
 
 body {
   font-family: 'RocGrotesk', sans-serif;
+  background-color: black;
 
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -80,12 +80,12 @@ body {
 
 body:after {
   animation: grain 6s steps(10) infinite;
-  background-image: url(/grain.png);
+  /* background-image: url(/grain.png); */
   background-repeat: repeat;
   content: "";
   height: 300%;
   left: -100%;
-  opacity: .03;
+  opacity: .06;
   pointer-events: none;
   position: fixed;
   top: -100%;

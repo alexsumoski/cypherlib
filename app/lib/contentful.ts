@@ -19,5 +19,18 @@ export async function fetchCypherpunkBySlug(slug: string) {
 
 export async function fetchTools() {
   const entries = await client.getEntries({ content_type: 'tool' });
+  entries.items.map(i => {
+    console.log(    i.fields
+      );
+
+  })
   return entries.items;
+}
+
+export async function fetchToolBySlug(slug: string) {
+  return await client.getEntries({
+    content_type: 'tool',
+    'fields.slug': slug,
+    limit: 1,
+  });
 }

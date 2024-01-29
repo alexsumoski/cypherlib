@@ -109,7 +109,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const cypherpunk = profileData.items[0];
 
-  console.log(cypherpunk);
-
   return { props: { cypherpunk } };
 };

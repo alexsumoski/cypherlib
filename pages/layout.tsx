@@ -4,7 +4,6 @@ import React from "react";
 import Header from "../app/layout/Header";
 import Footer from "../app/layout/Footer";
 import Head from "next/head";
-import BG from "@/app/components/Spline";
 
 interface LayoutProps {
   children: React.ReactNode;

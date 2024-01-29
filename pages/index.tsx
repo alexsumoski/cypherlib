@@ -10,7 +10,6 @@ import Carousel from "@/app/components/Carousel";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTab } from "@/app/lib/TabContext";
 import PrivacyToolsSection from "@/app/sections/PrivacyToolsSection";
-import Quote from "@/app/components/Quote";
 
 interface PageProps {
   cypherpunks: any[];
@@ -41,27 +40,10 @@ const slides = [
 const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools }) => {
   const { activeTab } = useTab();
 
-  // const handleTabChange = (newTab: string) => {
-  //   setActiveTab(newTab);
-  //   console.log("Active tab is now:", newTab);
-  // };
-
-  const HeroSection = () => (
+  const HomeSection = () => (
     <Container>
       <div className="flex flex-col w-full">
-        <div className="flex flex-col min-h-full mt-[110px]">
-          <h1 className="text-9xl font-black uppercase">
-            Home Section <br />
-            <span className="font-thin text-6xl">the Cypherpunk Library</span>
-          </h1>
-        </div>
-        {/* <div className="flex">
-          <div className="flex flex-[0.5] sm:scale-50 lg:scale-75 xl:scale-100">
-            <Quote />
-          </div>
-          <div className="flex flex-[0.5]">Other Content</div>
-        </div> */}
-
+        <div className="flex flex-col min-h-full mt-[110px]"></div>
         <div className="text-center my-60">
           <h1 className="font-instrument text-7xl font-black mb-24">
             CYPHERPUNK <br /> MANIFESTO
@@ -94,7 +76,7 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools }) => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <HeroSection />
+              <HomeSection />
             </motion.div>
           )}
 

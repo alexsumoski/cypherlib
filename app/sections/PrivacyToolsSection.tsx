@@ -8,6 +8,8 @@ import Container from "../layout/Container";
 import { Menu } from "@headlessui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import Carousel from "../components/swipe/DraggableCarousel";
+import Link from "next/link";
+import ToolDetailPage from "../components/ToolsDetailPage";
 
 interface Tool {
   fields: {
@@ -18,6 +20,8 @@ interface Tool {
     platform: string;
     image: any;
     tags: string[];
+    logo: any;
+    tooltip: string;
   };
 }
 
@@ -25,7 +29,7 @@ interface PrivacyToolsSectionProps {
   tools: Tool[];
 }
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 20;
 
 const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -34,7 +38,36 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
+
+  const [activeTool, setActiveTool] = useState(null);
+
   const loader = useRef(null);
+
+  const handleToolSelect = (tool: Tool) => {
+    // @ts-ignore
+    setActiveTool(tool);
+  };
+
+  const handleClose = () => {
+    setActiveTool(null);
+  };
+
+  const detailPageVariants = {
+    hidden: {
+      x: "100%",
+      opacity: 1,
+    },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: { type: "tween", duration: 0.6 }, // Duration for opening
+    },
+    exit: {
+      x: "100%",
+      opacity: 1,
+      transition: { type: "tween", duration: 1 }, // Extended duration for closing
+    },
+  };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -94,10 +127,10 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
   const filteredTools = useMemo(() => {
     const searchedTools = tools.filter((tool) => {
       const nameMatch = tool.fields.name
-        .toLowerCase()
+        ?.toLowerCase()
         .includes(searchTerm.toLowerCase());
       const descriptionMatch = tool.fields.cardDescription
-        .toLowerCase()
+        ?.toLowerCase()
         .includes(searchTerm.toLowerCase());
       const categoryMatch =
         selectedCategories.length === 0 ||
@@ -115,6 +148,19 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
 
   return (
     <Container>
+      <AnimatePresence>
+        {activeTool && (
+          <motion.div
+            variants={detailPageVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="fixed inset-0 z-50 p-4 overflow-auto"
+          >
+            <ToolDetailPage tool={activeTool} onClose={handleClose} />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="flex flex-col min-h-full mt-[110px]">
         <div className="h-fit">
           <Carousel />
@@ -170,12 +216,20 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
       <div className="space-y-3">
         {filteredTools.map((tool, index) => (
           <Tilt tiltMaxAngleX={1} tiltMaxAngleY={1} key={tool.fields.id}>
-            <div className="flex relative cursor-pointer items-center justify-between bg-black/50 border border-gray-800 p-4 rounded-lg hover:bg-slate-900/50 backdrop-blur-md transition duration-300 ease-in-out">
+            <div
+              onClick={() => handleToolSelect(tool)}
+              className="flex relative cursor-pointer items-center justify-between bg-black/50 border border-gray-800 p-4 rounded-lg hover:bg-slate-900/50 backdrop-blur-md transition duration-300 ease-in-out"
+            >
               <div className="flex items-center h-16 w-16 mr-8 bg-gray-900/40 rounded-sm relative">
                 <Image
-                  src={`https://${tool.fields.image.fields.file.url}`}
+                  src={
+                    tool.fields?.logo?.fields?.file?.url
+                      ? `https://${tool.fields.logo.fields.file.url}`
+                      : "/test.jpg"
+                  }
                   alt={
-                    tool.fields.image.fields.description || "Image description"
+                    tool.fields?.image?.fields?.description ||
+                    "Image description"
                   }
                   layout="fill"
                   objectFit="contain"
@@ -198,7 +252,7 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
                 <Tooltip
                   position="left"
                   darkBackground
-                  tooltipText={tool.fields.cardDescription}
+                  tooltipText={tool.fields.tooltip}
                 >
                   <FaInfoCircle className="text-white text-2xl cursor-pointer h-full" />
                 </Tooltip>
