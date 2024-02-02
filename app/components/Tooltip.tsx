@@ -63,8 +63,8 @@ const Tooltip: React.FC<TooltipProps> = ({
   };
 
   const tooltipClasses = `
-    absolute z-10 pointer-events-none 
-    ${wide ? "w-[80%] min-w-[300px]" : "w-max"}
+    absolute z-100 pointer-events-none 
+    w-[400px]
     bg-${darkBackground ? "black" : "white"} 
     ${darkBackground ? "text-white" : "text-black"}
     ${
@@ -75,7 +75,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     rounded px-4 py-3 shadow-2xl shadow-[#000000aa]`;
 
   const tooltipPositionClasses = {
-    left: "top-full right-0 -top-0 md:-top-16",
+    left: "top-full right-10 -top-0 md:-top-16",
     right: "top-full left-0 -top-0 md:-top-16",
     middle:
       "top-1/2 transform -translate-y-1/2 left-1/2 transform -translate-x-1/2",

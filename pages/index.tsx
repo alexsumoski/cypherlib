@@ -1,3 +1,4 @@
+"use client";
 import Container from "../app/layout/Container";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Layout from "@/pages/layout";
@@ -5,8 +6,11 @@ import Image from "next/image";
 import Card from "@/app/components/Card";
 import { useState } from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { fetchCypherpunks, fetchTools } from "@/app/lib/contentful";
-import Carousel from "@/app/components/Carousel";
+import {
+  fetchCypherpunks,
+  fetchGuides,
+  fetchTools,
+} from "@/app/lib/contentful";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTab } from "@/app/lib/TabContext";
 import PrivacyToolsSection from "@/app/sections/PrivacyToolsSection";
@@ -14,6 +18,7 @@ import PrivacyToolsSection from "@/app/sections/PrivacyToolsSection";
 interface PageProps {
   cypherpunks: any[];
   tools: any[];
+  guides: any[];
 }
 
 const slides = [
@@ -37,7 +42,7 @@ const slides = [
   ></Card>,
 ];
 
-const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools }) => {
+const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
   const { activeTab } = useTab();
 
   const HomeSection = () => (
@@ -88,7 +93,7 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools }) => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <PrivacyToolsSection tools={tools} />
+              <PrivacyToolsSection tools={tools} guides={guides} />
             </motion.div>
           )}
 
@@ -114,6 +119,7 @@ export default IndexPage;
 export const getStaticProps: GetStaticProps = async () => {
   const profiles = await fetchCypherpunks();
   const tools = await fetchTools();
+  const guides = await fetchGuides();
 
-  return { props: { cypherpunks: profiles, tools: tools } };
+  return { props: { cypherpunks: profiles, tools: tools, guides: guides } };
 };

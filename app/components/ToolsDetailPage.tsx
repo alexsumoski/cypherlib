@@ -29,7 +29,16 @@ const ToolDetailPage = ({ tool, onClose }) => {
         <h1 style={{ color: "blue", fontSize: "7em" }}>{children}</h1>
       ),
       [BLOCKS.HEADING_2]: (node: any, children: any) => (
-        <h2 style={{ color: "white", fontSize: "1.5em" }}>{children}</h2>
+        <h2
+          style={{
+            color: "white",
+            fontSize: "1.5em",
+            marginBottom: "1rem",
+            marginTop: "2rem",
+          }}
+        >
+          {children}
+        </h2>
       ),
       [BLOCKS.PARAGRAPH]: (node: any, children: any) => (
         <p style={{ color: "white", fontSize: "1em" }}>{children}</p>
@@ -43,7 +52,7 @@ const ToolDetailPage = ({ tool, onClose }) => {
         }
       },
       [INLINES.HYPERLINK]: (node: any, children: any) => (
-        <a href={node.data.uri} style={{ color: "red" }}>
+        <a href={node.data.uri} style={{ color: "lightgreen" }}>
           {children}
         </a>
       ),
@@ -60,7 +69,7 @@ const ToolDetailPage = ({ tool, onClose }) => {
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
       transition={{ type: "tween", duration: 0.5 }}
-      className="fixed inset-0 z-1000 bg-black/60 backdrop-blur-3xl p-20 overflow-auto"
+      className="fixed inset-0 z-1000 bg-black/60 backdrop-blur-3xl p-6 md:p-16 lg:p-20 overflow-auto"
     >
       <div className="flex justify-between items-start">
         <button
@@ -77,13 +86,15 @@ const ToolDetailPage = ({ tool, onClose }) => {
         <img
           src={`https://${tool.fields.image.fields.file.url}`}
           alt={tool.fields.image.fields.description || "Tool Image"}
-          className="w-full object-contain rounded-lg"
+          className="w-full object-contain rounded-2xl"
         />
       )}
 
       <div className="content flex flex-col mt-10 w-full">
-        <div className="flex justify-between">
-          <h1 className="text-3xl font-bold my-4">{tool.fields.name}</h1>
+        <div className="flex justify-between flex-col md:flex-row">
+          <h1 className="text-2xl md:text-3xl font-bold my-4">
+            {tool.fields.name}
+          </h1>
           <div className="flex items-center gap-4">
             {tool.fields.url && (
               <button
@@ -99,7 +110,7 @@ const ToolDetailPage = ({ tool, onClose }) => {
                 href={tool.fields.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-gray-800 text-white px-4 py-2 rounded"
+                className="flex items-center gap-2 bg-black text-white border-[1px] border-white px-4 py-2 rounded"
               >
                 GitHub <FaGithub />
               </a>
@@ -115,7 +126,7 @@ const ToolDetailPage = ({ tool, onClose }) => {
             )}
           </div>
         </div>
-        <div>{richTextContent}</div>
+        <div className="my-10">{richTextContent}</div>
       </div>
     </motion.div>
   );

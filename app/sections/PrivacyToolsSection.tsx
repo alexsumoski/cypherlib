@@ -1,6 +1,20 @@
-import React, { useState, useMemo, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useMemo,
+  useEffect,
+  useRef,
+  useCallback,
+} from "react";
 import Image from "next/image";
-import { FaFilter, FaInfoCircle, FaChevronDown } from "react-icons/fa";
+import {
+  FaFilter,
+  FaInfoCircle,
+  FaGlobe,
+  FaMobileAlt,
+  FaDesktop,
+  FaLaptop,
+  FaHdd,
+} from "react-icons/fa";
 import Tilt from "react-parallax-tilt";
 import Tooltip from "../components/Tooltip";
 import WaveLoader from "../components/WaveLoader";
@@ -8,7 +22,6 @@ import Container from "../layout/Container";
 import { Menu } from "@headlessui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import Carousel from "../components/swipe/DraggableCarousel";
-import Link from "next/link";
 import ToolDetailPage from "../components/ToolsDetailPage";
 
 interface Tool {
@@ -27,21 +40,43 @@ interface Tool {
 
 interface PrivacyToolsSectionProps {
   tools: Tool[];
+  guides: any[];
 }
 
 const ITEMS_PER_PAGE = 20;
 
-const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
+const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
+  tools,
+  guides,
+}) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [carouselGuides, setCarouselGuides] = useState([]);
 
   const [activeTool, setActiveTool] = useState(null);
 
   const loader = useRef(null);
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  console.log(guides);
+
+  const handleClickOutside = useCallback((event: { target: any }) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (dropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownOpen, handleClickOutside]);
 
   const handleToolSelect = (tool: Tool) => {
     // @ts-ignore
@@ -60,12 +95,12 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
     visible: {
       x: 0,
       opacity: 1,
-      transition: { type: "tween", duration: 0.6 }, // Duration for opening
+      transition: { type: "tween", duration: 0.6 },
     },
     exit: {
       x: "100%",
       opacity: 1,
-      transition: { type: "tween", duration: 1 }, // Extended duration for closing
+      transition: { type: "tween", duration: 1 },
     },
   };
 
@@ -73,26 +108,12 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category]
-    );
-  };
-
   const menuFadeVariants = {
     open: { opacity: 1, transition: { duration: 0.3 } },
     closed: { opacity: 0, transition: { duration: 0.3 } },
   };
 
-  const handlePlatformChange = (platform: string) => {
-    setSelectedPlatforms((prevPlatforms) =>
-      prevPlatforms.includes(platform)
-        ? prevPlatforms.filter((p) => p !== platform)
-        : [...prevPlatforms, platform]
-    );
-  };
+  const categories = ["Linux", "Mac OS", "Windows", "Android", "Crypto", "OS"];
 
   const handleObserver = (entities: IntersectionObserverEntry[]) => {
     const target = entities[0];
@@ -124,8 +145,18 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
     return () => clearTimeout(timer);
   }, [currentPage]);
 
+  const handleCategorySelect = (category: string | null) => {
+    setSelectedCategories((prev: any) => {
+      if (prev.includes(category)) {
+        return prev.filter((c: string | null) => c !== category);
+      } else {
+        return [...prev, category];
+      }
+    });
+  };
+
   const filteredTools = useMemo(() => {
-    const searchedTools = tools.filter((tool) => {
+    return tools.filter((tool) => {
       const nameMatch = tool.fields.name
         ?.toLowerCase()
         .includes(searchTerm.toLowerCase());
@@ -135,16 +166,31 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
       const categoryMatch =
         selectedCategories.length === 0 ||
         selectedCategories.includes(tool.fields.category);
-      const platformMatch =
-        selectedPlatforms.length === 0 ||
-        selectedPlatforms.includes(tool.fields.platform);
 
-      return (nameMatch || descriptionMatch) && categoryMatch && platformMatch;
+      return (nameMatch || descriptionMatch) && categoryMatch;
     });
+  }, [tools, searchTerm, selectedCategories]);
 
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    return searchedTools.slice(0, startIndex + ITEMS_PER_PAGE);
-  }, [tools, searchTerm, selectedCategories, selectedPlatforms, currentPage]);
+  const getPlatformIcons = (platforms: any) => {
+    if (!platforms || platforms.length === 0) return null;
+
+    const platformIcons = {
+      Web: <FaGlobe />,
+      Mobile: <FaMobileAlt />,
+      PC: <FaDesktop />,
+      Mac: <FaLaptop />,
+      Hardware: <FaHdd />,
+    };
+
+    return (
+      <div className="flex items-center gap-2">
+        {platforms.map((platform: any, index: number) => (
+          // @ts-ignore
+          <span key={index}>{platformIcons[platform]}</span>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <Container>
@@ -155,7 +201,7 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 z-50 p-4 overflow-auto"
+            className="fixed inset-0 z-50 overflow-auto"
           >
             <ToolDetailPage tool={activeTool} onClose={handleClose} />
           </motion.div>
@@ -163,7 +209,8 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
       </AnimatePresence>
       <div className="flex flex-col min-h-full mt-[110px]">
         <div className="h-fit">
-          <Carousel />
+          <div className=" ring-0 w-fit px-2 py-1 text-2xl">Guides</div>
+          <Carousel guides={guides} />
         </div>
         <div className="flex gap-3">
           <input
@@ -173,43 +220,53 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
             placeholder="Search tools..."
             className="px-4 h-[54px] w-full md:w-[40%] py-3 border-[1px] rounded-md outline-none bg-black border-white mb-4"
           />
-          <Menu as="div" className="relative inline-block text-left">
-            <Menu.Button className="flex justify-center items-center h-[54px] w-full rounded-md border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-black">
+          <Menu
+            as="div"
+            className="relative inline-block text-left"
+            ref={dropdownRef}
+          >
+            <Menu.Button
+              className="flex justify-center items-center h-[54px] w-full rounded-md border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-black"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
               <span className="text-lg mr-3">Filters</span>
               <FaFilter className="w-5 h-5" />
             </Menu.Button>
-            <Menu.Items
-              as={motion.div}
-              initial="closed"
-              animate="open"
-              exit="closed"
-              variants={menuFadeVariants}
-              className="origin-top-right overflow-hidden absolute right-0 mt-2 w-64 rounded-lg shadow-lg border border-gray-400 bg-black/20 backdrop-blur-sm ring-1 ring-black ring-opacity-5 z-10"
-            >
-              <div
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="options-menu"
+            {dropdownOpen && (
+              <Menu.Items
+                as={motion.div}
+                initial="closed"
+                animate="open"
+                exit="closed"
+                variants={menuFadeVariants}
+                className="origin-top-right overflow-hidden absolute right-0 mt-2 p-2 w-[350px] rounded-lg shadow-lg bg-black/50 backdrop-blur-sm border border-gray-400 ring-1 ring-black ring-opacity-5 z-10"
               >
-                {["Linux", "Mac OS", "Windows", "Android", "iOS", "Crypto"].map(
-                  (platform) => (
-                    <label
-                      key={platform}
-                      className="px-6 py-5 text-md text-white cursor-pointer hover:bg-gray-200 hover:text-gray-900 flex items-center hover:bg-slate-900/50 backdrop-blur-md transition duration-300 ease-in-out"
+                <div
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  <p className="my-2 ms-1">Categories</p>
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      className={`px-5 py-2 m-1 rounded-full text-md font-medium transition duration-300 ease-in-out ${
+                        selectedCategories.includes(category)
+                          ? "bg-purple-500 border border-purple-500 text-white"
+                          : "bg-black text-white border border-white"
+                      }`}
+                      onClick={() =>
+                        handleCategorySelect(
+                          category === "All" ? null : category
+                        )
+                      }
                     >
-                      <input
-                        type="checkbox"
-                        checked={selectedPlatforms.includes(platform)}
-                        onChange={() => handlePlatformChange(platform)}
-                        onClick={(e) => e.stopPropagation()}
-                        className="mr-3 form-checkbox rounded-md h-5 w-5 text-slate"
-                      />
-                      {platform}
-                    </label>
-                  )
-                )}
-              </div>
-            </Menu.Items>
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              </Menu.Items>
+            )}
           </Menu>
         </div>
       </div>
@@ -218,48 +275,88 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({ tools }) => {
           <Tilt tiltMaxAngleX={1} tiltMaxAngleY={1} key={tool.fields.id}>
             <div
               onClick={() => handleToolSelect(tool)}
-              className="flex relative cursor-pointer items-center justify-between bg-black/50 border border-gray-800 p-4 rounded-lg hover:bg-slate-900/50 backdrop-blur-md transition duration-300 ease-in-out"
+              className="relative cursor-pointer bg-black/50 border border-gray-800 rounded-lg hover:bg-slate-900/50 backdrop-blur-md transition duration-300 ease-in-out"
             >
-              <div className="flex items-center h-16 w-16 mr-8 bg-gray-900/40 rounded-sm relative">
-                <Image
-                  src={
-                    tool.fields?.logo?.fields?.file?.url
-                      ? `https://${tool.fields.logo.fields.file.url}`
-                      : "/test.jpg"
-                  }
-                  alt={
-                    tool.fields?.image?.fields?.description ||
-                    "Image description"
-                  }
-                  layout="fill"
-                  objectFit="contain"
-                  className="rounded-sm"
-                />
+              <div className="flex flex-col items-center p-4 sm:hidden">
+                <div className="flex items-center justify-start w-full mb-2">
+                  <div className="h-16 w-16 bg-gray-900/40 rounded-sm mr-4">
+                    <Image
+                      src={
+                        tool.fields?.logo?.fields?.file?.url
+                          ? `https://${tool.fields.logo.fields.file.url}`
+                          : "/test.jpg"
+                      }
+                      alt={
+                        tool.fields?.image?.fields?.description ||
+                        "Image description"
+                      }
+                      layout="fill"
+                      objectFit="contain"
+                      className="rounded-md !relative"
+                    />
+                  </div>
+                  <h2 className="text-lg text-white font-bold mr-3">
+                    {tool.fields.name}
+                  </h2>
+                </div>
+                <div className="w-full">
+                  <p className="text-white py-2">
+                    {tool.fields.cardDescription}
+                  </p>
+                  <div className="mt-2">
+                    <p className="bg-slate-800 rounded-full px-3 py-1 text-white text-sm w-fit">
+                      {tool.fields.category}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <h2 className="text-lg text-white font-bold flex-1">
-                {tool.fields.name}
-              </h2>
-              <p className="text-white flex-1">{tool.fields.cardDescription}</p>
-              <div className="flex-1 flex items-center justify-center">
-                <p className="bg-slate-800 rounded-full px-3 py-1 text-white text-sm">
-                  {tool.fields.category}
-                </p>
-              </div>
-              <div className="flex-1 text-center text-white">
-                {tool.fields.platform}
-              </div>
-              <div className="flex justify-center items-center w-20">
-                <Tooltip
-                  position="left"
-                  darkBackground
-                  tooltipText={tool.fields.tooltip}
-                >
-                  <FaInfoCircle className="text-white text-2xl cursor-pointer h-full" />
-                </Tooltip>
+
+              <div className="hidden md:flex items-center justify-between p-4">
+                <div className="flex items-center w-full">
+                  <div className="h-14 w-14 bg-gray-900/40 rounded-sm mr-4">
+                    <Image
+                      src={
+                        tool.fields?.logo?.fields?.file?.url
+                          ? `https://${tool.fields.logo.fields.file.url}`
+                          : "/test.jpg"
+                      }
+                      alt={
+                        tool.fields?.image?.fields?.description ||
+                        "Image description"
+                      }
+                      layout="fill"
+                      objectFit="contain"
+                      className="rounded-lg !relative"
+                    />
+                  </div>
+                  <h2 className="text-lg text-white font-bold mr-6 flex-1">
+                    {tool.fields.name}
+                  </h2>
+                  <p className="text-white flex-1">
+                    {tool.fields.cardDescription}
+                  </p>
+                  <div className="flex items-center flex-1">
+                    <p className="bg-slate-800 rounded-full px-3 py-1 text-white text-sm mr-4">
+                      {tool.fields.category}
+                    </p>
+                    {getPlatformIcons(tool.fields.platform)}
+                  </div>
+                </div>
+
+                <div className="w-20 flex justify-center items-center">
+                  <Tooltip
+                    position="left"
+                    darkBackground
+                    tooltipText={tool.fields.tooltip}
+                  >
+                    <FaInfoCircle className="text-white text-2xl cursor-pointer" />
+                  </Tooltip>
+                </div>
               </div>
             </div>
           </Tilt>
         ))}
+
         <div ref={loader} />
         {loadingMore && <WaveLoader />}
       </div>
