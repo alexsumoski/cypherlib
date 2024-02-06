@@ -27,19 +27,17 @@ const GuidePage: React.FC<GuideDetailsProp> = ({ guide }) => {
   return (
     <Layout>
       <Container>
-        <div className="relative h-[60vh]">
-          <div className="absolute top-0 left-0 h-full w-full">
-            {heroImage && (
-              <Image
-                src={`https:${heroImage.fields.file.url}`}
-                alt="Background"
-                layout="fill"
-                objectFit="contain"
-                className="w-full"
-              />
-            )}
-            <div className="absolute inset-0 flex justify-center items-center">
-              <h1 className="text-9xl text-white font-black uppercase tracking-widest">
+        <div className="relative w-full mt-[10%]">
+          <Image
+            src={`https:${heroImage.fields.file.url}`}
+            alt="Background"
+            layout="fill"
+            objectFit="contain"
+            className="w-full absolute top-[20%]"
+          />
+          <div className="relative h-full w-full">
+            <div className=" inset-0 flex justify-center items-center">
+              <h1 className="text-7xl text-white font-black uppercase tracking-widest z-10">
                 {title}
               </h1>
             </div>
