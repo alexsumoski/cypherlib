@@ -17,37 +17,23 @@
 }
 
 @font-face {
-  font-family: 'RocGrotesk';
-  src: url('/fonts/rocgrotesk-thin.otf') format('opentype');
+  font-family: 'NeueMachina';
+  src: url('/fonts/NeueMachina-Light.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'RocGrotesk';
-  src: url('/fonts/rocgrotesk-regular.otf') format('opentype');
+  font-family: 'NeueMachina';
+  src: url('/fonts/NeueMachina-Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'RocGrotesk';
-  src: url('/public/fonts/rocgrotesk-medium.otf') format('opentype');
+  font-family: 'NeueMachina';
+  src: url('/public/fonts/NeueMachina-Ultrabold.otf') format('opentype');
   font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'RocGrotesk';
-  src: url('/public/fonts/rocgrotesk-heavy.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'RocGrotesk';
-  src: url('/public/fonts/rocgrotesk-extrabold.otf') format('opentype');
-  font-weight: 900;
   font-style: normal;
 }
 
@@ -65,7 +51,7 @@ html {
 }
 
 body {
-  font-family: 'RocGrotesk', sans-serif;
+  font-family: 'NeueMachina', sans-serif;
   background-color: black;
 
   color: rgb(var(--foreground-rgb));
@@ -204,8 +190,8 @@ background-color: white !important;
   --slide-spacing: 1rem;
   --slide-size: 50%;
   --slide-height: 19rem;
-  padding: 1.6rem 0;
-  margin: 0 0 4rem;
+  padding: 0.8rem 0;
+  margin: 0 0 3rem;
 }
 .embla__viewport {
   overflow: hidden;
@@ -366,4 +352,45 @@ a {
   font-family: sans-serif;
   font-weight: bold;
   margin-top: 2rem;
+}
+
+.scrollbar-track {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+  background-color: black;
+  border: 1px solid white;
+  border-radius: 0.25rem; /* 4px */
+  overflow: hidden;
+}
+
+.select-wrapper select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: black;
+  color: white;
+  padding: 8px;
+  padding-right: 30px; /* Make space for the custom chevron */
+  border: none;
+  border-radius: 0.25rem; /* 4px */
+  width: 100%;
+  cursor: pointer;
+}
+
+.select-wrapper::after {
+  content: '▼'; /* Chevron icon */
+  position: absolute;
+  top: 0;
+  right: 10px; /* Adjust this to move the chevron left or right */
+  pointer-events: none;
+  color: white;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  scale: 0.75;
 }

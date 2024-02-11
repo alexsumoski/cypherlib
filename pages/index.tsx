@@ -14,6 +14,9 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { useTab } from "@/app/lib/TabContext";
 import PrivacyToolsSection from "@/app/sections/PrivacyToolsSection";
+import Hero from "@/app/components/Hero";
+import Carousel from "@/app/components/DraggableCarousel";
+import ThreeCanvas from "@/app/components/Plane";
 
 interface PageProps {
   cypherpunks: any[];
@@ -47,8 +50,31 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
 
   const HomeSection = () => (
     <Container>
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full mt-[8%]">
+        <div className="h-[400px] opacity-30">
+          <ThreeCanvas />
+        </div>
+        <div>
+          <motion.h1
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.7 }}
+            className="text-9xl font-thin"
+          >
+            CYPHERLIB
+          </motion.h1>{" "}
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.9, delay: 0.5 }}
+            className="text-4xl ps-3 pt-3 font-thin"
+          >
+            The Cypherpunk Library
+          </motion.p>
+        </div>
+        <Hero />
         <div className="flex flex-col min-h-full mt-[110px]"></div>
+        <Carousel guides={guides} />
         <div className="text-center my-60">
           <h1 className="font-instrument text-7xl font-black mb-24">
             CYPHERPUNK <br /> MANIFESTO
@@ -63,8 +89,10 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
 
   const CypherpunkSection = () => (
     <Container>
-      <div className="flex flex-col min-h-full mt-[110px]">
-        <h1 className="text-9xl font-black uppercase">Cypherpunk Museum</h1>
+      <div className="flex relative h-[100vh]">
+        <p className="absolute top-[40%] w-full text-center text-2xl uppercase">
+          coming soon
+        </p>
       </div>
     </Container>
   );

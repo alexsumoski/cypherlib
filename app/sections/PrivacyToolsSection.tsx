@@ -21,8 +21,11 @@ import WaveLoader from "../components/WaveLoader";
 import Container from "../layout/Container";
 import { Menu } from "@headlessui/react";
 import { motion, AnimatePresence } from "framer-motion";
-import Carousel from "../components/swipe/DraggableCarousel";
+import Carousel from "../components/DraggableCarousel";
 import ToolDetailPage from "../components/ToolsDetailPage";
+import Modal from "../components/Modal";
+import RequestTool from "../forms/RequestTool";
+import SearchInput from "../shared/SearchInput";
 
 interface Tool {
   fields: {
@@ -55,10 +58,13 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
   const [loadingMore, setLoadingMore] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [carouselGuides, setCarouselGuides] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [activeTool, setActiveTool] = useState(null);
 
   const loader = useRef(null);
+
+  const categories = ["Linux", "Mac OS", "Windows", "Android", "Crypto", "OS"];
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   console.log(guides);
@@ -112,8 +118,6 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
     open: { opacity: 1, transition: { duration: 0.3 } },
     closed: { opacity: 0, transition: { duration: 0.3 } },
   };
-
-  const categories = ["Linux", "Mac OS", "Windows", "Android", "Crypto", "OS"];
 
   const handleObserver = (entities: IntersectionObserverEntry[]) => {
     const target = entities[0];
@@ -194,6 +198,9 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
 
   return (
     <Container>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <RequestTool onClose={() => setIsModalOpen(false)} />
+      </Modal>
       <AnimatePresence>
         {activeTool && (
           <motion.div
@@ -209,17 +216,22 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
       </AnimatePresence>
       <div className="flex flex-col min-h-full mt-[110px]">
         <div className="h-fit">
-          <div className=" ring-0 w-fit px-2 py-1 text-2xl">Guides</div>
+          <div className="flex justify-between items-center">
+            <div className=" ring-0 w-fit px-2 py-1 text-4xl">Guides</div>
+            <div className="w-48">
+              <p className="font-thin pb-2">Think a tool should be added?</p>
+              <button
+                className="p-4 border-[1px]"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Request a new tool
+              </button>
+            </div>
+          </div>
           <Carousel guides={guides} />
         </div>
         <div className="flex gap-3">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            placeholder="Search tools..."
-            className="px-4 h-[54px] w-full md:w-[40%] py-3 border-[1px] rounded-md outline-none bg-black border-white mb-4"
-          />
+          <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <Menu
             as="div"
             className="relative inline-block text-left"
@@ -304,7 +316,7 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
                     {tool.fields.cardDescription}
                   </p>
                   <div className="mt-2">
-                    <p className="bg-slate-800 rounded-full px-3 py-1 text-white text-sm w-fit">
+                    <p className="bg-slate-800 bg-sla rounded-full px-3 py-1 text-white text-sm w-fit">
                       {tool.fields.category}
                     </p>
                   </div>

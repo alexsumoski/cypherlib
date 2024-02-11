@@ -14,8 +14,7 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       fontFamily: {
-        'instrument': ['Instrument Sans', 'sans-serif'],
-        'montserrat': ['Montserrat', 'sans-serif'],
+        'neue': ['NeueMachina', 'sans-serif'],
       },
       letterSpacing: {
         'extra-tight': '-0.05em',
