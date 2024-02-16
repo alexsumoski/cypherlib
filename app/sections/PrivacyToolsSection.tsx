@@ -57,7 +57,6 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [carouselGuides, setCarouselGuides] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [activeTool, setActiveTool] = useState(null);
@@ -67,7 +66,6 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
   const categories = ["Linux", "Mac OS", "Windows", "Android", "Crypto", "OS"];
 
   const dropdownRef = useRef<HTMLDivElement>(null);
-  console.log(guides);
 
   const handleClickOutside = useCallback((event: { target: any }) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -108,15 +106,6 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
       opacity: 1,
       transition: { type: "tween", duration: 1 },
     },
-  };
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const menuFadeVariants = {
-    open: { opacity: 1, transition: { duration: 0.3 } },
-    closed: { opacity: 0, transition: { duration: 0.3 } },
   };
 
   const handleObserver = (entities: IntersectionObserverEntry[]) => {
@@ -218,19 +207,11 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
         <div className="h-fit">
           <div className="flex justify-between items-center">
             <div className=" ring-0 w-fit px-2 py-1 text-4xl">Guides</div>
-            <div className="w-48">
-              <p className="font-thin pb-2">Think a tool should be added?</p>
-              <button
-                className="p-4 border-[1px]"
-                onClick={() => setIsModalOpen(true)}
-              >
-                Request a new tool
-              </button>
-            </div>
           </div>
           <Carousel guides={guides} />
         </div>
         <div className="flex gap-3">
+          <div className="flex flex-1 gap-3">
           <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <Menu
             as="div"
@@ -244,42 +225,56 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
               <span className="text-lg mr-3">Filters</span>
               <FaFilter className="w-5 h-5" />
             </Menu.Button>
-            {dropdownOpen && (
-              <Menu.Items
-                as={motion.div}
-                initial="closed"
-                animate="open"
-                exit="closed"
-                variants={menuFadeVariants}
-                className="origin-top-right overflow-hidden absolute right-0 mt-2 p-2 w-[350px] rounded-lg shadow-lg bg-black/50 backdrop-blur-sm border border-gray-400 ring-1 ring-black ring-opacity-5 z-10"
-              >
-                <div
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="options-menu"
+            <AnimatePresence>
+              {dropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className="origin-top-right absolute right-0 mt-2 p-2 w-[350px] rounded-lg shadow-lg bg-black/50 backdrop-blur-sm border border-gray-400 ring-1 ring-black ring-opacity-5 z-10"
                 >
-                  <p className="my-2 ms-1">Categories</p>
-                  {categories.map((category) => (
-                    <button
-                      key={category}
-                      className={`px-5 py-2 m-1 rounded-full text-md font-medium transition duration-300 ease-in-out ${
-                        selectedCategories.includes(category)
-                          ? "bg-purple-500 border border-purple-500 text-white"
-                          : "bg-black text-white border border-white"
-                      }`}
-                      onClick={() =>
-                        handleCategorySelect(
-                          category === "All" ? null : category
-                        )
-                      }
-                    >
-                      {category}
-                    </button>
-                  ))}
-                </div>
-              </Menu.Items>
-            )}
+                    <Menu.Items className="origin-top-right overflow-hidden absolute right-0 mt-2 p-2 w-[350px] rounded-lg shadow-lg bg-black/50 backdrop-blur-sm border border-gray-400 ring-1 ring-black ring-opacity-5 z-10">
+                      <div
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="options-menu"
+                      >
+                        <p className="my-2 ms-1">Categories</p>
+                        {categories.map((category) => (
+                          <button
+                            key={category}
+                            className={`px-5 py-2 m-1 rounded-full text-md font-medium transition duration-300 ease-in-out ${
+                              selectedCategories.includes(category)
+                                ? "bg-purple-500 border border-purple-500 text-white"
+                                : "bg-black text-white border border-white"
+                            }`}
+                            onClick={() =>
+                              handleCategorySelect(
+                                category === "All" ? null : category
+                              )
+                            }
+                          >
+                            {category}
+                          </button>
+                        ))}
+                      </div>
+                    </Menu.Items>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </Menu>
+          </div>
+          <div className="w-48 -translate-y-6">
+              <p className="font-thin pb-2">Think a tool should be added?</p>
+              <button
+                className="underline"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Request a new tool
+              </button>
+            </div>
         </div>
       </div>
       <div className="space-y-3">
@@ -368,7 +363,6 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
             </div>
           </Tilt>
         ))}
-
         <div ref={loader} />
         {loadingMore && <WaveLoader />}
       </div>

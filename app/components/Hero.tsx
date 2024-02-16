@@ -18,9 +18,8 @@ const Hero: React.FC = () => {
   const { activeTab, setActiveTab } = useTab();
 
   return (
-    // Changed to flex-row and added gap-4 for spacing between cards
     <div className="flex flex-col w-full justify-center items-center h-96 my-16 gap-4">
-      {heroCards.map((card, index) => (
+      {heroCards.map((card) => (
         <Tilt
           key={card.id}
           tiltMaxAngleX={5}

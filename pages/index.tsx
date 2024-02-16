@@ -4,7 +4,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Layout from "@/pages/layout";
 import Image from "next/image";
 import Card from "@/app/components/Card";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import {
   fetchCypherpunks,
@@ -17,6 +17,9 @@ import PrivacyToolsSection from "@/app/sections/PrivacyToolsSection";
 import Hero from "@/app/components/Hero";
 import Carousel from "@/app/components/DraggableCarousel";
 import ThreeCanvas from "@/app/components/Plane";
+import ParagraphsNavigator from "@/app/components/ParagraphNavigator";
+import { script } from "@/app/data/script";
+import LocationDisplay from "@/app/components/Location";
 
 interface PageProps {
   cypherpunks: any[];
@@ -24,34 +27,14 @@ interface PageProps {
   guides: any[];
 }
 
-const slides = [
-  <Card
-    title="Title"
-    imageUrl="/public/img.webp"
-    subtitle="Subtitle"
-    category="Category"
-    linkHref="link"
-    text="text"
-    linkText="link"
-  ></Card>,
-  <Card
-    title="Title"
-    imageUrl="/public/img.webp"
-    subtitle="Subtitle"
-    category="Category"
-    linkHref="link"
-    text="text"
-    linkText="link"
-  ></Card>,
-];
-
 const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
   const { activeTab } = useTab();
 
   const HomeSection = () => (
     <Container>
       <div className="flex flex-col w-full mt-[8%]">
-        <div className="h-[400px] opacity-30">
+        {/* <p className="text-white font-thin text-lg opacity-15">{script}</p> */}
+        <div className="h-[400px] opacity-0">
           <ThreeCanvas />
         </div>
         <div>
@@ -59,29 +42,46 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.7 }}
-            className="text-9xl font-thin"
+            className="text-7xl sm:text-9xl font-thin"
           >
             CYPHERLIB
-          </motion.h1>{" "}
+          </motion.h1>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.9, delay: 0.5 }}
-            className="text-4xl ps-3 pt-3 font-thin"
+            transition={{ duration: 1, delay: 0.9 }}
+            className="text-3xl sm:text-4xl ps-2 pt-3 font-thin"
           >
             The Cypherpunk Library
           </motion.p>
         </div>
-        <Hero />
+        {/* <Hero /> */}
         <div className="flex flex-col min-h-full mt-[110px]"></div>
-        <Carousel guides={guides} />
-        <div className="text-center my-60">
-          <h1 className="font-instrument text-7xl font-black mb-24">
-            CYPHERPUNK <br /> MANIFESTO
-          </h1>
-          <h4 className="tracking-mega-wide leading-tall">
-            PRIVACY <br /> IS <br /> NECESSARY
-          </h4>
+        {/* <Carousel guides={guides} /> */}
+        <div className="text-left my-60">
+          <motion.h2
+            initial={{ x: -25, y: 15, opacity: 0.2 }}
+            whileInView={{ x: 0, y: 0, opacity: 1 }}
+            // viewport={{ once: false, amount: 0.5 }}
+            transition={{ duration: 1 }}
+            className="text-8xl mb-16"
+          >
+            THE <br /> CYPHERPUNK <br /> MANIFESTO
+          </motion.h2>
+          <div className="flex flex-col ms-auto w-full md:w-3/4 ">
+            <div className="relative overflow-visible transition-all duration-500 ease-in-out">
+              <motion.h3
+                initial={{ x: 50, opacity: 0.2 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                viewport={{ once: false }}
+                transition={{ duration: 1.3 }}
+                className="text-right leading-tall absolute tracking-ultra-wide sm:text-sm md:tracking-mega-wide"
+              >
+                PRIVACY IS NECESSARY
+              </motion.h3>
+              <ParagraphsNavigator />
+            </div>
+          </div>
         </div>
       </div>
     </Container>

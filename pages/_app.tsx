@@ -22,12 +22,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   return (
-    <SmoothScrollContainer>
+    <TabProvider>
       <Toaster />
-      <TabProvider>
+      <SmoothScrollContainer>
         <Component {...pageProps} />
-      </TabProvider>
-    </SmoothScrollContainer>
+      </SmoothScrollContainer>
+    </TabProvider>
   );
 }
 

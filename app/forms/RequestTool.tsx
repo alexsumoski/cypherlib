@@ -40,8 +40,7 @@ const RequestTool: React.FC<RequestToolInterface> = ({ onClose }) => {
       .then(
         (response) => {
           console.log("SUCCESS!", response.status, response.text);
-          // Assuming you close the modal here, then show the toast
-          onClose(); // This function would close your modal - you need to implement it based on your modal logic
+          onClose();
           toast.success("Request submitted successfully!");
           setToolName("");
           setCategory("");
@@ -91,7 +90,7 @@ const RequestTool: React.FC<RequestToolInterface> = ({ onClose }) => {
         Submit
       </button>
       <p className="text-white mt-4">
-        Or email us directly at{" "}
+        Or email us directly at
         <a
           href="mailto:cypherlib@proton.me"
           className="underline font-thin text-purple-400"

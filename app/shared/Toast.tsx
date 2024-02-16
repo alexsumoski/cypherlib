@@ -1,9 +1,15 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  ReactNode,
+  useEffect,
+} from "react";
 
 interface Toast {
   id: string;
   message: string;
-  children: React.ReactNode;
 }
 
 interface ToastContextType {
@@ -15,15 +21,20 @@ const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 let toastId = 0;
 
-export const ToastProvider: React.FC<Toast> = ({ children }) => {
+export const ToastProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
+
   const addToast = useCallback((message: string) => {
     const id = (++toastId).toString();
-    setToasts((toasts: any) => [...toasts, { id, message }]);
+    setToasts((currentToasts) => [...currentToasts, { id, message }]);
   }, []);
 
   const removeToast = useCallback((id: string) => {
-    setToasts((toasts) => toasts.filter((toast) => toast.id !== id));
+    setToasts((currentToasts) =>
+      currentToasts.filter((toast) => toast.id !== id)
+    );
   }, []);
 
   return (
@@ -31,7 +42,7 @@ export const ToastProvider: React.FC<Toast> = ({ children }) => {
       {children}
       <div className="fixed top-5 right-5 z-50 space-y-2">
         {toasts.map((toast) => (
-          <Toast
+          <ToastComponent
             key={toast.id}
             message={toast.message}
             onClose={() => removeToast(toast.id)}
@@ -42,19 +53,11 @@ export const ToastProvider: React.FC<Toast> = ({ children }) => {
   );
 };
 
-export const useToasts = () => {
-  const context = useContext(ToastContext);
-  if (context === undefined) {
-    throw new Error("useToasts must be used within a ToastProvider");
-  }
-  return context;
-};
-
-const Toast: React.FC<{ message: string; onClose: () => void }> = ({
+const ToastComponent: React.FC<{ message: string; onClose: () => void }> = ({
   message,
   onClose,
 }) => {
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(onClose, 3000);
     return () => clearTimeout(timer);
   }, [onClose]);
