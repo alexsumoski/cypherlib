@@ -143,9 +143,9 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
 export default IndexPage;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const profiles = await fetchCypherpunks();
+  // const profiles = await fetchCypherpunks();
   const tools = await fetchTools();
   const guides = await fetchGuides();
 
-  return { props: { cypherpunks: profiles, tools: tools, guides: guides } };
+  return { props: { tools: tools, guides: guides } };
 };
