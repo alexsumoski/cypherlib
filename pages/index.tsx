@@ -42,7 +42,7 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.7 }}
-            className="text-7xl sm:text-9xl font-thin"
+            className="text-6xl md:text-8xl font-thin"
           >
             CYPHERLIB
           </motion.h1>
@@ -50,21 +50,19 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 0.9 }}
-            className="text-3xl sm:text-4xl ps-2 pt-3 font-thin"
+            className="text-2xl md:text-4xl ps-2 pt-3 font-thin"
           >
             The Cypherpunk Library
           </motion.p>
         </div>
-        {/* <Hero /> */}
         <div className="flex flex-col min-h-full mt-[110px]"></div>
-        {/* <Carousel guides={guides} /> */}
         <div className="text-left my-60">
           <motion.h2
             initial={{ x: -25, y: 15, opacity: 0.2 }}
             whileInView={{ x: 0, y: 0, opacity: 1 }}
-            // viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="text-8xl mb-16"
+            className="text-5xl mb-16 md:text-8xl"
           >
             THE <br /> CYPHERPUNK <br /> MANIFESTO
           </motion.h2>
@@ -73,9 +71,9 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
               <motion.h3
                 initial={{ x: 50, opacity: 0.2 }}
                 whileInView={{ x: 0, opacity: 1 }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
                 transition={{ duration: 1.3 }}
-                className="text-right leading-tall absolute tracking-ultra-wide sm:text-sm md:tracking-mega-wide"
+                className="text-right leading-tall absolute tracking-ultra-wide text-sm md:text-md md:tracking-mega-wide"
               >
                 PRIVACY IS NECESSARY
               </motion.h3>

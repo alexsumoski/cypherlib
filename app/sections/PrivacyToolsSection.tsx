@@ -16,14 +16,14 @@ import {
   FaHdd,
 } from "react-icons/fa";
 import Tilt from "react-parallax-tilt";
-import Tooltip from "../components/Tooltip";
+import Tooltip from "../shared/Tooltip";
 import WaveLoader from "../components/WaveLoader";
 import Container from "../layout/Container";
 import { Menu } from "@headlessui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import Carousel from "../components/DraggableCarousel";
 import ToolDetailPage from "../components/ToolsDetailPage";
-import Modal from "../components/Modal";
+import Modal from "../shared/Modal";
 import RequestTool from "../forms/RequestTool";
 import SearchInput from "../shared/SearchInput";
 
@@ -212,28 +212,31 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
         </div>
         <div className="flex gap-3">
           <div className="flex flex-1 gap-3">
-          <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <Menu
-            as="div"
-            className="relative inline-block text-left"
-            ref={dropdownRef}
-          >
-            <Menu.Button
-              className="flex justify-center items-center h-[54px] w-full rounded-md border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-black"
-              onClick={() => setDropdownOpen(!dropdownOpen)}
+            <SearchInput
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+            />
+            <Menu
+              as="div"
+              className="relative inline-block text-left"
+              ref={dropdownRef}
             >
-              <span className="text-lg mr-3">Filters</span>
-              <FaFilter className="w-5 h-5" />
-            </Menu.Button>
-            <AnimatePresence>
-              {dropdownOpen && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
-                  className="origin-top-right absolute right-0 mt-2 p-2 w-[350px] rounded-lg shadow-lg bg-black/50 backdrop-blur-sm border border-gray-400 ring-1 ring-black ring-opacity-5 z-10"
-                >
+              <Menu.Button
+                className="flex justify-center items-center h-[54px] w-full rounded-md border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-black"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                <span className="text-lg mr-3">Filters</span>
+                <FaFilter className="w-5 h-5" />
+              </Menu.Button>
+              <AnimatePresence>
+                {dropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="origin-top-right absolute right-0 mt-2 p-2 w-[350px] rounded-lg shadow-lg bg-black/50 backdrop-blur-sm border border-gray-400 ring-1 ring-black ring-opacity-5 z-10"
+                  >
                     <Menu.Items className="origin-top-right overflow-hidden absolute right-0 mt-2 p-2 w-[350px] rounded-lg shadow-lg bg-black/50 backdrop-blur-sm border border-gray-400 ring-1 ring-black ring-opacity-5 z-10">
                       <div
                         role="menu"
@@ -260,21 +263,17 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
                         ))}
                       </div>
                     </Menu.Items>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </Menu>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Menu>
           </div>
           <div className="w-48 -translate-y-6">
-              <p className="font-thin pb-2">Think a tool should be added?</p>
-              <button
-                className="underline"
-                onClick={() => setIsModalOpen(true)}
-              >
-                Request a new tool
-              </button>
-            </div>
+            <p className="font-thin pb-2">Think a tool should be added?</p>
+            <button className="underline" onClick={() => setIsModalOpen(true)}>
+              Request a new tool
+            </button>
+          </div>
         </div>
       </div>
       <div className="space-y-3">

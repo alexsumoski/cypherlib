@@ -9,7 +9,8 @@ export const paragraphs: string[] = [
     this; how could anyone prevent it? One could pass laws against
     it, but the freedom of speech, even more than privacy, is
     fundamental to an open society; we seek not to restrict any
-    speech at all. If many parties speak together in the same forum,
+    speech at all.`,
+    ` If many parties speak together in the same forum,
     each can speak to all the others and aggregate together
     knowledge about individuals and other parties. The power of
     electronic communications has enabled such group speech, and it
@@ -27,7 +28,8 @@ export const paragraphs: string[] = [
     assurance when the default is anonymity requires the
     cryptographic signature. We cannot expect governments,
     corporations, or other large, faceless organizations to grant us
-    privacy out of their beneficence. It is to their advantage to
+    privacy out of their beneficence.`,
+    ` It is to their advantage to
     speak of us, and we should expect that they will speak. To try
     to prevent their speech is to fight against the realities of
     information. Information does not just want to be free, it longs
@@ -36,7 +38,8 @@ export const paragraphs: string[] = [
     Information is fleeter of foot, has more eyes, knows more, and
     understands less than Rumor. We must defend our own privacy if
     we expect to have any. We must come together and create systems
-    which allow anonymous transactions to take place. People have
+    which allow anonymous transactions to take place.`,
+    ` People have
     been defending their own privacy for centuries with whispers,
     darkness, envelopes, closed doors, secret handshakes, and
     couriers. The technologies of the past did not allow for strong
@@ -51,7 +54,8 @@ export const paragraphs: string[] = [
     Our code is free for all to use, worldwide. We don't much care
     if you don't approve of the software we write. We know that
     software can't be destroyed and that a widely dispersed system
-    can't be shut down. Cypherpunks deplore regulations on
+    can't be shut down.`,
+    `Cypherpunks deplore regulations on
     cryptography, for encryption is fundamentally a private act. The
     act of encryption, in fact, removes information from the public
     realm. Even laws against cryptography reach only so far as a

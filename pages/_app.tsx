@@ -23,10 +23,20 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <TabProvider>
-      <Toaster />
-      <SmoothScrollContainer>
-        <Component {...pageProps} />
-      </SmoothScrollContainer>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            border: "1px solid white",
+            padding: "16px",
+            backgroundColor: "black",
+            color: "white",
+          },
+        }}
+      />
+      {/* <SmoothScrollContainer> */}
+      <Component {...pageProps} />
+      {/* </SmoothScrollContainer> */}
     </TabProvider>
   );
 }

@@ -23,7 +23,7 @@ const DonationCard: React.FC = () => {
         Support Cypherlib by donating to our Bitcoin wallet:
       </p>
       <div
-        className="flex justify-between items-center bg-gray-800 p-2 rounded cursor-pointer"
+        className="flex justify-between items-center border-[1px] p-4 cursor-pointer"
         onClick={copyToClipboard}
       >
         <span className="me-4 font-normal text-sm">{walletAddress}</span>

@@ -42,7 +42,6 @@
 }
 
 html {
-  overflow-x: hidden;
   height: 100%;
   width: 100%;
   box-sizing: border-box;
@@ -53,7 +52,8 @@ html {
 body {
   font-family: 'NeueMachina', sans-serif;
   background-color: black;
-
+  overflow-x: hidden !important;
+  box-sizing: border-box;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -394,3 +394,23 @@ a {
   align-items: center;
   scale: 0.75;
 }
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #c084fc; /* Light purple, adjust as needed */
+  animation: spin 0.6s ease-in-out infinite;
+  -webkit-animation: spin 0.6s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}
+

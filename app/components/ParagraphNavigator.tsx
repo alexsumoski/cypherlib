@@ -25,7 +25,7 @@ const ParagraphsNavigator: React.FC = () => {
   return (
     <div className="w-full flex flex-col mx-auto overflow-visible">
       <div className="relative">
-        <div className="flex gap-6 absolute right-0 -top-28 z-20">
+        <div className="flex gap-6 absolute right-0 -top-10 md:-top-28 z-20">
           <motion.button
             initial={false}
             animate={{

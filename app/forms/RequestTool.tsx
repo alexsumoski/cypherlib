@@ -15,6 +15,7 @@ const RequestTool: React.FC<RequestToolInterface> = ({ onClose }) => {
   const [toolName, setToolName] = useState("");
   const [category, setCategory] = useState("");
   const [website, setWebsite] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,6 +24,8 @@ const RequestTool: React.FC<RequestToolInterface> = ({ onClose }) => {
       toast.error("Please fill in all fields.");
       return;
     }
+
+    setIsLoading(true); // Start loading
 
     const templateParams = {
       toolName,
@@ -50,8 +53,10 @@ const RequestTool: React.FC<RequestToolInterface> = ({ onClose }) => {
           console.log("FAILED...", err);
           toast.error("Failed to send request.");
         }
-      );
+      )
+      .finally(() => setIsLoading(false));
   };
+
   return (
     <form className="flex flex-col gap-4 p-8" onSubmit={handleSubmit}>
       <h2 className="text-4xl py-4">Request a new privacy tool</h2>
@@ -85,12 +90,13 @@ const RequestTool: React.FC<RequestToolInterface> = ({ onClose }) => {
 
       <button
         type="submit"
-        className="bg-white text-black p-2 rounded-full my-4"
+        className="bg-white h-[40px] text-black p-2 rounded-full my-4 flex items-center justify-center"
+        disabled={isLoading}
       >
-        Submit
+        {isLoading ? <div className="spinner" /> : "Submit"}
       </button>
       <p className="text-white mt-4">
-        Or email us directly at
+        Or email us directly at{" "}
         <a
           href="mailto:cypherlib@proton.me"
           className="underline font-thin text-purple-400"

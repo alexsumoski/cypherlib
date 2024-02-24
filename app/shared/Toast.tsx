@@ -1,6 +1,5 @@
 import React, {
   createContext,
-  useContext,
   useState,
   useCallback,
   ReactNode,
@@ -58,7 +57,7 @@ const ToastComponent: React.FC<{ message: string; onClose: () => void }> = ({
   onClose,
 }) => {
   useEffect(() => {
-    const timer = setTimeout(onClose, 3000);
+    const timer = setTimeout(onClose, 6000);
     return () => clearTimeout(timer);
   }, [onClose]);
 

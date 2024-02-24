@@ -12,7 +12,7 @@ interface Tab {
 const tabs: Tab[] = [
   { id: "home", label: "Home" },
   { id: "privacy-tools", label: "Privacy Tools" },
-  { id: "cypherpunks", label: "Cypherpunk Museum" },
+  // { id: "cypherpunks", label: "Cypherpunk Museum" },
 ];
 
 const Header: React.FC = () => {

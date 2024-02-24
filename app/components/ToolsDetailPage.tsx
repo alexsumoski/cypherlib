@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
+import Button from "../shared/Button";
 
 // @ts-ignore
 const ToolDetailPage = ({ tool, onClose }) => {
@@ -97,32 +98,30 @@ const ToolDetailPage = ({ tool, onClose }) => {
           </h1>
           <div className="flex items-center gap-4">
             {tool.fields.url && (
-              <button
-                onClick={() => window.open(tool.fields.url, "_blank")}
-                className="flex items-center gap-2 bg-black text-white border-[1px] border-white px-4 py-2 rounded"
+              <Button
+                onClick={() => window.open(tool.fields.website, "_blank")}
+                icon={<FaExternalLinkAlt />}
               >
-                Website <FaExternalLinkAlt />
-              </button>
+                Website
+              </Button>
             )}
 
             {tool.fields.github && (
-              <a
-                href={tool.fields.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-black text-white border-[1px] border-white px-4 py-2 rounded"
+              <Button
+                onClick={() => window.open(tool.fields.github, "_blank")}
+                icon={<FaGithub />}
               >
-                GitHub <FaGithub />
-              </a>
+                GitHub
+              </Button>
             )}
 
             {tool.fields.docs && (
-              <button
+              <Button
                 onClick={() => window.open(tool.fields.docs, "_blank")}
-                className="flex items-center gap-2 bg-black text-white border-[1px] border-white px-4 py-2 rounded"
+                icon={<FaFileAlt />}
               >
-                Docs <FaFileAlt />
-              </button>
+                Docs
+              </Button>
             )}
           </div>
         </div>
