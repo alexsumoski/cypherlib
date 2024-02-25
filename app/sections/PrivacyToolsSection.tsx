@@ -5,18 +5,17 @@ import React, {
   useRef,
   useCallback,
 } from "react";
-import Image from "next/image";
 import {
   FaFilter,
-  FaInfoCircle,
   FaGlobe,
   FaMobileAlt,
   FaDesktop,
   FaLaptop,
   FaHdd,
+  FaLinux,
+  FaApple,
+  FaWindows,
 } from "react-icons/fa";
-import Tilt from "react-parallax-tilt";
-import Tooltip from "../shared/Tooltip";
 import WaveLoader from "../components/WaveLoader";
 import Container from "../layout/Container";
 import { Menu } from "@headlessui/react";
@@ -26,6 +25,8 @@ import ToolDetailPage from "../components/ToolsDetailPage";
 import Modal from "../shared/Modal";
 import RequestTool from "../forms/RequestTool";
 import SearchInput from "../shared/SearchInput";
+import ToolTableCard from "../components/ToolTableCard";
+import ToolCard from "../components/ToolCard";
 
 interface Tool {
   fields: {
@@ -58,7 +59,6 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
   const [loadingMore, setLoadingMore] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [activeTool, setActiveTool] = useState(null);
 
   const loader = useRef(null);
@@ -164,25 +164,14 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
     });
   }, [tools, searchTerm, selectedCategories]);
 
-  const getPlatformIcons = (platforms: any) => {
-    if (!platforms || platforms.length === 0) return null;
-
-    const platformIcons = {
-      Web: <FaGlobe />,
-      Mobile: <FaMobileAlt />,
-      PC: <FaDesktop />,
-      Mac: <FaLaptop />,
-      Hardware: <FaHdd />,
+  const getPlatformIcons = (platform: string): JSX.Element => {
+    const platformIcons: Record<string, JSX.Element> = {
+      Linux: <FaLinux className="text-white" />,
+      MacOS: <FaApple className="text-white" />,
+      Windows: <FaWindows className="text-white" />,
     };
 
-    return (
-      <div className="flex items-center gap-2">
-        {platforms.map((platform: any, index: number) => (
-          // @ts-ignore
-          <span key={index}>{platformIcons[platform]}</span>
-        ))}
-      </div>
-    );
+    return platformIcons[platform] || <></>; // Return an empty fragment if no icon matches
   };
 
   return (
@@ -210,7 +199,7 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
           </div>
           <Carousel guides={guides} />
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-col-reverse md:flex-row">
           <div className="flex flex-1 gap-3">
             <SearchInput
               searchTerm={searchTerm}
@@ -235,9 +224,8 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="origin-top-right absolute right-0 mt-2 p-2 w-[350px] rounded-lg shadow-lg bg-black/50 backdrop-blur-sm border border-gray-400 ring-1 ring-black ring-opacity-5 z-10"
                   >
-                    <Menu.Items className="origin-top-right overflow-hidden absolute right-0 mt-2 p-2 w-[350px] rounded-lg shadow-lg bg-black/50 backdrop-blur-sm border border-gray-400 ring-1 ring-black ring-opacity-5 z-10">
+                    <Menu.Items className="origin-top-right overflow-hidden absolute right-0 mt-2 p-2 w-[350px] rounded-lg shadow-lg bg-black/70 backdrop-blur-md border border-gray-400 ring-1 ring-black ring-opacity-5 z-10">
                       <div
                         role="menu"
                         aria-orientation="vertical"
@@ -277,90 +265,13 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
         </div>
       </div>
       <div className="space-y-3">
-        {filteredTools.map((tool, index) => (
-          <Tilt tiltMaxAngleX={1} tiltMaxAngleY={1} key={tool.fields.id}>
-            <div
-              onClick={() => handleToolSelect(tool)}
-              className="relative cursor-pointer bg-black/50 border border-gray-800 rounded-lg hover:bg-slate-900/50 backdrop-blur-md transition duration-300 ease-in-out"
-            >
-              <div className="flex flex-col items-center p-4 sm:hidden">
-                <div className="flex items-center justify-start w-full mb-2">
-                  <div className="h-16 w-16 bg-gray-900/40 rounded-sm mr-4">
-                    <Image
-                      src={
-                        tool.fields?.logo?.fields?.file?.url
-                          ? `https://${tool.fields.logo.fields.file.url}`
-                          : "/test.jpg"
-                      }
-                      alt={
-                        tool.fields?.image?.fields?.description ||
-                        "Image description"
-                      }
-                      layout="fill"
-                      objectFit="contain"
-                      className="rounded-md !relative"
-                    />
-                  </div>
-                  <h2 className="text-lg text-white font-bold mr-3">
-                    {tool.fields.name}
-                  </h2>
-                </div>
-                <div className="w-full">
-                  <p className="text-white py-2">
-                    {tool.fields.cardDescription}
-                  </p>
-                  <div className="mt-2">
-                    <p className="bg-slate-800 bg-sla rounded-full px-3 py-1 text-white text-sm w-fit">
-                      {tool.fields.category}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="hidden md:flex items-center justify-between p-4">
-                <div className="flex items-center w-full">
-                  <div className="h-14 w-14 bg-gray-900/40 rounded-sm mr-4">
-                    <Image
-                      src={
-                        tool.fields?.logo?.fields?.file?.url
-                          ? `https://${tool.fields.logo.fields.file.url}`
-                          : "/test.jpg"
-                      }
-                      alt={
-                        tool.fields?.image?.fields?.description ||
-                        "Image description"
-                      }
-                      layout="fill"
-                      objectFit="contain"
-                      className="rounded-lg !relative"
-                    />
-                  </div>
-                  <h2 className="text-lg text-white font-bold mr-6 flex-1">
-                    {tool.fields.name}
-                  </h2>
-                  <p className="text-white flex-1">
-                    {tool.fields.cardDescription}
-                  </p>
-                  <div className="flex items-center flex-1">
-                    <p className="bg-slate-800 rounded-full px-3 py-1 text-white text-sm mr-4">
-                      {tool.fields.category}
-                    </p>
-                    {getPlatformIcons(tool.fields.platform)}
-                  </div>
-                </div>
-
-                <div className="w-20 flex justify-center items-center">
-                  <Tooltip
-                    position="left"
-                    darkBackground
-                    tooltipText={tool.fields.tooltip}
-                  >
-                    <FaInfoCircle className="text-white text-2xl cursor-pointer" />
-                  </Tooltip>
-                </div>
-              </div>
-            </div>
-          </Tilt>
+        {filteredTools.map((tool: any) => (
+          <ToolTableCard
+            key={tool.fields.id}
+            tool={tool}
+            handleSelect={handleToolSelect}
+            getIcons={getPlatformIcons}
+          />
         ))}
         <div ref={loader} />
         {loadingMore && <WaveLoader />}

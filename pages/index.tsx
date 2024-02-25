@@ -73,7 +73,7 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
                 whileInView={{ x: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.3 }}
-                className="text-right leading-tall absolute tracking-ultra-wide text-sm md:text-md md:tracking-mega-wide"
+                className="text-right break-all leading-tall absolute tracking-ultra-wide text-sm md:text-md md:tracking-mega-wide"
               >
                 PRIVACY IS NECESSARY
               </motion.h3>

@@ -4,7 +4,7 @@ import { paragraphs } from "../data/paragraphs";
 
 const ParagraphsNavigator: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [direction, setDirection] = useState<number>(0); // 1 for next, -1 for back
+  const [direction, setDirection] = useState<number>(0);
 
   const nextParagraph = (): void => {
     if (currentIndex < paragraphs.length - 1) {
@@ -23,9 +23,23 @@ const ParagraphsNavigator: React.FC = () => {
   const isLastParagraph = currentIndex === paragraphs.length - 1;
 
   return (
-    <div className="w-full flex flex-col mx-auto overflow-visible">
+    <div className="w-full flex flex-col mx-auto overflow-hidden">
       <div className="relative">
-        <div className="flex gap-6 absolute right-0 -top-10 md:-top-28 z-20">
+        <AnimatePresence custom={direction} mode="wait">
+          <motion.p
+            key={currentIndex}
+            custom={direction}
+            initial={{ opacity: 0, x: direction === -1 ? -50 : 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: direction === 1 ? -50 : 50 }}
+            transition={{ duration: 0.5 }}
+            className="mt-20 md:mt-16 leading-loose"
+          >
+            {paragraphs[currentIndex]}
+          </motion.p>
+        </AnimatePresence>
+
+        <div className="flex justify-end gap-6 mt-8">
           <motion.button
             initial={false}
             animate={{
@@ -53,19 +67,6 @@ const ParagraphsNavigator: React.FC = () => {
             Continue
           </motion.button>
         </div>
-        <AnimatePresence custom={direction} mode="wait">
-          <motion.p
-            key={currentIndex}
-            custom={direction}
-            initial={{ opacity: 0, x: direction === -1 ? -50 : 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: direction === 1 ? -50 : 50 }}
-            transition={{ duration: 0.5 }}
-            className="mt-20 md:mt-10 leading-loose"
-          >
-            {paragraphs[currentIndex]}
-          </motion.p>
-        </AnimatePresence>
         <AnimatePresence>
           {isLastParagraph && (
             <motion.p

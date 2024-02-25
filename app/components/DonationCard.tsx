@@ -27,7 +27,7 @@ const DonationCard: React.FC = () => {
         onClick={copyToClipboard}
       >
         <span className="me-4 font-normal text-sm">{walletAddress}</span>
-        <CopyIcon className="w-6 h-6" />
+        <CopyIcon width={20} height={20} className="absolute right-8" />
       </div>
     </div>
   );

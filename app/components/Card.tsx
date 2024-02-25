@@ -23,7 +23,7 @@ const Card: React.FC<CardProps> = ({
   linkText,
 }) => {
   return (
-    <div className="w-full overflow-hidden shadow-sm backdrop-filter backdrop-blur-sm border border-[#363636] bg-purple-800 bg-opacity-10 rounded-2xl p-8">
+    <div className="w-full overflow-hidden shadow-sm backdrop-filter backdrop-blur-sm border border-slate-800 bg-purple-800 bg-opacity-10 rounded-2xl p-8">
       {" "}
       <Image
         src={imageUrl}

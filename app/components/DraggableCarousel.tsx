@@ -34,50 +34,52 @@ const Carousel: React.FC<CarouselProps> = ({ guides }) => {
   }, [embla, onSelect]);
 
   return (
-    <div className="embla" ref={emblaRef}>
-      <div className="embla__container">
-        {guides.map((guide, index) => (
-          <div key={index} className="embla__slide">
-            <Link
-              href={`/guides/${encodeURIComponent(
-                guide.fields.title
-                  ? guide.fields.title.replace(/\s+/g, "-").toLowerCase()
-                  : ""
-              )}`}
-              legacyBehavior
-            >
-              <a className="relative w-full h-64 block">
-                <img
-                  className="w-full h-full object-cover rounded-lg"
-                  src={guide.fields.heroImage?.fields.file.url}
-                  alt={guide.fields.title}
-                />
-                <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-end rounded-lg p-8">
-                  <h3 className="text-white text-2xl font-bold">
-                    {guide.fields.title}
-                  </h3>
-                  <h5 className="text-white text-base">
-                    {guide.fields.subtitle}
-                  </h5>
-                  <p className="text-white text-base">
-                    {guide.fields.description}
-                  </p>
-                </div>
-              </a>
-            </Link>
-          </div>
-        ))}
-      </div>
-      <div className="embla__dots">
-        {guides.map((_, index) => (
-          <button
-            key={index}
-            className={`embla__dot ${
-              index === selectedIndex ? "is-selected" : ""
-            }`}
-            onClick={() => embla && embla.scrollTo(index)}
-          ></button>
-        ))}
+    <div className="embla-viewport">
+      <div className="embla" ref={emblaRef}>
+        <div className="embla__container">
+          {guides.map((guide, index) => (
+            <div key={index} className="embla__slide">
+              <Link
+                href={`/guides/${encodeURIComponent(
+                  guide.fields.title
+                    ? guide.fields.title.replace(/\s+/g, "-").toLowerCase()
+                    : ""
+                )}`}
+                legacyBehavior
+              >
+                <a className="relative w-full h-64 block">
+                  <img
+                    className="w-full h-full object-cover rounded-lg"
+                    src={guide.fields.heroImage?.fields.file.url}
+                    alt={guide.fields.title}
+                  />
+                  <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-end rounded-lg p-8">
+                    <h3 className="text-white text-2xl font-bold">
+                      {guide.fields.title}
+                    </h3>
+                    <h5 className="text-white text-base">
+                      {guide.fields.subtitle}
+                    </h5>
+                    <p className="text-white text-base">
+                      {guide.fields.description}
+                    </p>
+                  </div>
+                </a>
+              </Link>
+            </div>
+          ))}
+        </div>
+        <div className="embla__dots">
+          {guides.map((_, index) => (
+            <button
+              key={index}
+              className={`embla__dot ${
+                index === selectedIndex ? "is-selected" : ""
+              }`}
+              onClick={() => embla && embla.scrollTo(index)}
+            ></button>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -34,9 +34,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           },
         }}
       />
-      {/* <SmoothScrollContainer> */}
       <Component {...pageProps} />
-      {/* </SmoothScrollContainer> */}
     </TabProvider>
   );
 }
