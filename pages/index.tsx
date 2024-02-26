@@ -19,7 +19,7 @@ import Carousel from "@/app/components/DraggableCarousel";
 import ThreeCanvas from "@/app/components/Plane";
 import ParagraphsNavigator from "@/app/components/ParagraphNavigator";
 import { script } from "@/app/data/script";
-import LocationDisplay from "@/app/components/Location";
+import Boot from "@/app/components/Boot";
 
 interface PageProps {
   cypherpunks: any[];
@@ -30,33 +30,20 @@ interface PageProps {
 const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
   const { activeTab } = useTab();
 
+  const imageVariants = {
+    hidden: { x: -100, opacity: 0 },
+    visible: { x: 0, opacity: 1 },
+  };
+
   const HomeSection = () => (
     <Container>
       <div className="flex flex-col w-full mt-[8%]">
         {/* <p className="text-white font-thin text-lg opacity-15">{script}</p> */}
-        <div className="h-[400px] opacity-0">
-          <ThreeCanvas />
-        </div>
-        <div>
-          <motion.h1
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.7 }}
-            className="text-6xl md:text-8xl font-thin"
-          >
-            CYPHERLIB
-          </motion.h1>
-          <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1, delay: 0.9 }}
-            className="text-2xl md:text-4xl ps-2 pt-3 font-thin"
-          >
-            The Cypherpunk Library
-          </motion.p>
+        <div className="h-[450px]">
+          <Boot />
         </div>
         <div className="flex flex-col min-h-full mt-[110px]"></div>
-        <div className="text-left my-60">
+        <div className="text-left mt-60">
           <motion.h2
             initial={{ x: -25, y: 15, opacity: 0.2 }}
             whileInView={{ x: 0, y: 0, opacity: 1 }}
@@ -79,6 +66,22 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
               </motion.h3>
               <ParagraphsNavigator />
             </div>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 1.0 }}
+              variants={imageVariants}
+              className="absolute left-0 hidden md:flex"
+            >
+              <Image
+                src="/art.png"
+                alt="Art"
+                width={500}
+                height={400}
+                className="-translate-x-[40%] "
+              />
+            </motion.div>
           </div>
         </div>
       </div>

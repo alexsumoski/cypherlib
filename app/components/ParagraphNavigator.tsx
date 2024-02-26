@@ -70,11 +70,11 @@ const ParagraphsNavigator: React.FC = () => {
         <AnimatePresence>
           {isLastParagraph && (
             <motion.p
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1.5, delay: 1 }}
-              className="font-thin text-2xl mt-8"
+              className="font-thin text-2xl mt-8 terminal-style glitch glitch--clone"
             >
               Eric Hughes &lt;hughes@soda.berkeley.edu&gt; 9 March 1993
             </motion.p>

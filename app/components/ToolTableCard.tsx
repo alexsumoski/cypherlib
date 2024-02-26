@@ -22,7 +22,7 @@ const ToolTableCard: React.FC<ToolCardProps> = ({
     <Tilt tiltMaxAngleX={1} tiltMaxAngleY={1} key={tool.fields.id}>
       <div
         onClick={() => handleSelect(tool)}
-        className="relative cursor-pointer bg-black/50 border border-slate-700 rounded-lg hover:bg-slate-900/50 backdrop-blur-md transition duration-300 ease-in-out"
+        className="relative cursor-pointer bg-black/50 border-[0.5px] border-white/30 rounded-lg hover:bg-slate-900/50 backdrop-blur-md transition duration-300 ease-in-out"
       >
         {/* Mobile View */}
         <div className="flex flex-col items-center p-4 sm:hidden">

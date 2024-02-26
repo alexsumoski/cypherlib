@@ -17,17 +17,21 @@ const DonationCard: React.FC = () => {
   };
 
   return (
-    <div className="max-w-sm mb-8 text-white rounded-lg shadow-md">
+    <div className="relative max-w-sm mb-8 text-white rounded-lg shadow-md">
       <h3 className="text-lg font-bold mb-2">Donate Bitcoin</h3>
       <p className="mb-4 text-sm">
         Support Cypherlib by donating to our Bitcoin wallet:
       </p>
       <div
-        className="flex justify-between items-center border-[1px] p-4 cursor-pointer"
+        className="flex justify-between items-center bg-black/50 border-[1px] p-4 cursor-pointer terminal-style border-[#ff6666]"
         onClick={copyToClipboard}
       >
-        <span className="me-4 font-normal text-sm">{walletAddress}</span>
-        <CopyIcon width={20} height={20} className="absolute right-8" />
+        <span className="me-4 font-normal text-md">{walletAddress}</span>
+        <CopyIcon
+          width={20}
+          height={20}
+          className="absolute right-5 terminal-style"
+        />
       </div>
     </div>
   );

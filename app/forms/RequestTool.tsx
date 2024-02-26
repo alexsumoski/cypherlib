@@ -99,7 +99,7 @@ const RequestTool: React.FC<RequestToolInterface> = ({ onClose }) => {
         Or email us directly at{" "}
         <a
           href="mailto:cypherlib@proton.me"
-          className="underline font-thin text-purple-400"
+          className="underline font-thin terminal-style"
         >
           cypherlib@proton.me
         </a>

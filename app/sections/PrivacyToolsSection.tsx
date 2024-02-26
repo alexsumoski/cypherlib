@@ -258,7 +258,10 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
           </div>
           <div className="w-48 -translate-y-6">
             <p className="font-thin pb-2">Think a tool should be added?</p>
-            <button className="underline" onClick={() => setIsModalOpen(true)}>
+            <button
+              className="underline terminal-style"
+              onClick={() => setIsModalOpen(true)}
+            >
               Request a new tool
             </button>
           </div>

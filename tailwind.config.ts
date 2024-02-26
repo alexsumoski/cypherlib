@@ -24,6 +24,10 @@ const config: Config = {
       lineHeight: {
         'tall': '5',
       },
+      textShadow: {
+        default: '2px 2px 4px rgba(0, 0, 0, 0.8)',
+        lg: '0 2px 10px rgba(0, 0, 0, 0.8)',
+      },
     },
   },
   plugins: [],

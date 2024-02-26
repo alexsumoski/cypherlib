@@ -49,20 +49,17 @@ const Carousel: React.FC<CarouselProps> = ({ guides }) => {
               >
                 <a className="relative w-full h-64 block">
                   <img
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-cover rounded-lg border-[1px] border-white/30"
                     src={guide.fields.heroImage?.fields.file.url}
                     alt={guide.fields.title}
                   />
                   <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-end rounded-lg p-8">
-                    <h3 className="text-white text-2xl font-bold">
+                    <h3 className="text-white text-2xl font-bold text-shadow-large">
                       {guide.fields.title}
                     </h3>
-                    <h5 className="text-white text-base">
+                    <h5 className="text-white text-base text-shadow-large">
                       {guide.fields.subtitle}
                     </h5>
-                    <p className="text-white text-base">
-                      {guide.fields.description}
-                    </p>
                   </div>
                 </a>
               </Link>

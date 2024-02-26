@@ -66,7 +66,7 @@ body {
 
 body:after {
   animation: grain 6s steps(10) infinite;
-  /* background-image: url(/grain.png); */
+  background-image: url(/grain.png);
   background-repeat: repeat;
   content: "";
   height: 300%;
@@ -215,12 +215,14 @@ background-color: white !important;
   padding-left: var(--slide-spacing);
   position: relative;
 }
+
 .embla__slide__img {
   display: block;
   height: var(--slide-height);
   width: 100%;
   object-fit: cover;
 }
+
 .embla__slide__number {
   width: 4.6rem;
   height: 4.6rem;
@@ -371,7 +373,7 @@ a {
   display: inline-block;
   background-color: black;
   border: 1px solid white;
-  border-radius: 0.25rem; /* 4px */
+  border-radius: 0.25rem;
   overflow: hidden;
 }
 
@@ -382,18 +384,18 @@ a {
   background-color: black;
   color: white;
   padding: 8px;
-  padding-right: 30px; /* Make space for the custom chevron */
+  padding-right: 30px;
   border: none;
-  border-radius: 0.25rem; /* 4px */
+  border-radius: 0.25rem;
   width: 100%;
   cursor: pointer;
 }
 
 .select-wrapper::after {
-  content: '▼'; /* Chevron icon */
+  content: '▼';
   position: absolute;
   top: 0;
-  right: 10px; /* Adjust this to move the chevron left or right */
+  right: 10px;
   pointer-events: none;
   color: white;
   height: 100%;
@@ -408,7 +410,7 @@ a {
   height: 20px;
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  border-top-color: #c084fc; /* Light purple, adjust as needed */
+  border-top-color: #ff6666;
   animation: spin 0.6s ease-in-out infinite;
   -webkit-animation: spin 0.6s ease-in-out infinite;
 }
@@ -420,4 +422,201 @@ a {
 @-webkit-keyframes spin {
   to { -webkit-transform: rotate(360deg); }
 }
+
+.terminal-container {
+
+  display: flex;
+  font-size: 3vw;
+  font-weight: 100;
+  background-image: url(http://api.thumbr.it/whitenoise-200x200.png?background=00000000&noise=626262&density=15&opacity=15);
+  background-size: 100px;
+  height: 100%;
+  text-align: center;
+}
+
+.terminal-style {
+  text-shadow: 0 0 5px red;
+  color: #ff6666;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+  monospace;
+}
+
+.terminal {
+  grid-row: 1;
+  grid-column: 1;
+  grid-template-rows: 1fr auto 1fr;
+  grid-template-columns: 1fr auto 1fr;
+  max-width: 900px;
+  width: 100%;
+  justify-self: center;
+  align-self: center;
+  margin: auto;
+}
+
+.glitch {
+	animation: glitch 1.5s linear infinite;
+}
+
+.glitch--clone {
+	opacity: 0.2;
+}
+
+.glitch--clone .hydra {
+	filter: blur(2px);
+	opacity: 0.8;
+}
+
+.glitch--top {
+	animation: glitch--top 1s linear infinite;
+}
+
+.glitch--top .hydra {
+	transform: translate(4vw, 4vw);
+}
+
+.glitch--bottom {
+	animation: glitch--bottom 0.75s linear infinite;
+}
+
+.glitch--bottom .hydra {
+	transform: translate(-1vw, -1vw);
+}
+
+.hydra {
+	box-shadow: 0 0 2px red, inset 0 0 2px red;
+	padding: 2vw;
+	border: 0.2vw solid #ff6666;
+	grid-row: 2/2;
+	grid-column: 2/2;
+}
+
+.loading-bar--unloaded {
+	color: #fff;
+	text-shadow: 0 0 5px #fff;
+}
+
+.hidden {
+	display: none;
+}
+
+p {
+	font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+		monospace;
+	font-size: inherit;
+	line-height: 1.5;
+	margin: 0;
+}
+
+.text--sm {
+	font-size: 1.75vw;
+}
+
+* + .text--sm {
+	padding-top: 0.5vw;
+}
+
+* + .loading-bar {
+	padding-top: 1vw;
+}
+
+@keyframes scanline {
+	0.01% {
+		transform: translatey(-100%);
+	}
+	99.99% {
+		transform: translatey(0);
+	}
+	100% {
+		transform: translatey(-100%);
+	}
+}
+
+@keyframes glitch {
+	2%,
+	64% {
+		transform: translate(2px, 0) skew(0deg);
+	}
+	4%,
+	60% {
+		transform: translate(-2px, 0) skew(0deg);
+	}
+	62% {
+		transform: translate(0, 0) skew(5deg);
+	}
+}
+
+@keyframes glitch--top {
+	2%,
+	64% {
+		transform: translate(2px, -2px);
+	}
+	4%,
+	60% {
+		transform: translate(-2px, 2px);
+	}
+	62% {
+		transform: translate(13px, -1px) skew(-13deg);
+	}
+}
+
+@keyframes glitch--bottom {
+	2%,
+	64% {
+		transform: translate(-2px, 0);
+	}
+	4%,
+	60% {
+		transform: translate(-2px, 0);
+	}
+	62% {
+		transform: translate(-22px, 5px) skew(21deg);
+	}
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 3px 2px #ff0000;
+    opacity: 0.1;
+  }
+  50% {
+    box-shadow: 0 0 15px 5px #ff0000;
+    opacity: 0.2;
+  }
+  100% {
+    box-shadow: 0 0 3px 2px #ff0000;
+    opacity: 0.1;
+  }
+}
+
+.grid-lines-container {
+  position: relative;
+  height: 100%;
+}
+
+.grid-lines-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 600px;
+  background: linear-gradient(to bottom, black, transparent);
+  z-index: 0;
+}
+
+.grid-line {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: #ff6666; 
+  box-shadow: 0 0 5px 2px #ff0000;
+  opacity: 0.1;
+  z-index: -1;
+  animation: pulseGlow 5s infinite ease-in-out;
+}
+
+.grid-line-1 { left: 25%; }
+.grid-line-2 { left: 50%; }
+.grid-line-3 { left: 75%; }
 

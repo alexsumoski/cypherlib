@@ -5,6 +5,7 @@ import "../app/globals.css";
 import { TabProvider } from "@/app/lib/TabContext";
 import SmoothScrollContainer from "@/app/components/SmoothScrollContainer";
 import { Toaster } from "react-hot-toast";
+import GridLines from "@/app/shared/GridLines";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <TabProvider>
+      <GridLines />
       <Toaster
         position="top-right"
         toastOptions={{
