@@ -53,7 +53,7 @@ const ToolDetailPage = ({ tool, onClose }) => {
         }
       },
       [INLINES.HYPERLINK]: (node: any, children: any) => (
-        <a href={node.data.uri} style={{ color: "lightgreen" }}>
+        <a href={node.data.uri} style={{ color: "royalblue" }}>
           {children}
         </a>
       ),
@@ -83,15 +83,15 @@ const ToolDetailPage = ({ tool, onClose }) => {
       </div>
 
       {/* Hero Image Section */}
-      {tool.fields.image && (
+      {/* {tool.fields.image && (
         <img
           src={`https://${tool.fields.image.fields.file.url}`}
           alt={tool.fields.image.fields.description || "Tool Image"}
           className="w-full object-contain rounded-2xl"
         />
-      )}
+      )} */}
 
-      <div className="content flex flex-col mt-10 w-full">
+      <div className="content flex flex-col mt-28 w-full">
         <div className="flex justify-between flex-col md:flex-row">
           <h1 className="text-2xl md:text-3xl font-bold my-4">
             {tool.fields.name}

@@ -78,7 +78,7 @@ const TerminalAnimation: React.FC = () => {
       <AnimatePresence>
         {!showRebooting && (
           <motion.div
-            className="hydra_reboot_success"
+            className="hydra_reboot_success text-left terminal-style mt-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -87,7 +87,7 @@ const TerminalAnimation: React.FC = () => {
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.7 }}
-              className="text-6xl md:text-8xl font-thin"
+              className="text-6xl md:text-9xl font-thin"
             >
               CYPHERLIB
             </motion.h1>

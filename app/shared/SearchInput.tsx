@@ -25,12 +25,12 @@ const SearchInput: React.FC<SearchInputProps> = ({
         value={searchTerm}
         onChange={handleSearchChange}
         placeholder="Search tools..."
-        className="px-4 h-[54px] py- border-[1px] rounded-md outline-none bg-black border-white w-full text-white"
+        className="px-4 h-[54px] border-[1px] rounded-md outline-none bg-black border-white w-full text-white"
       />
       {searchTerm && (
         <button
           onClick={clearSearch}
-          className="absolute inset-y-0 right-0 pr-3 flex items-center text-white"
+          className="absolute inset-y-0 h-[54px] right-0 pr-3 flex items-center text-white"
         >
           <MdClose className="h-5 w-5" />
         </button>

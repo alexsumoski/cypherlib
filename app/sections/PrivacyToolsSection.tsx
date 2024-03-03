@@ -63,7 +63,7 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
 
   const loader = useRef(null);
 
-  const categories = ["Linux", "Mac OS", "Windows", "Android", "Crypto", "OS"];
+  const categories = ["Web", "Desktop", "Mobile", "Crypto"];
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -171,7 +171,7 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
       Windows: <FaWindows className="text-white" />,
     };
 
-    return platformIcons[platform] || <></>; // Return an empty fragment if no icon matches
+    return platformIcons[platform] || <></>;
   };
 
   return (
@@ -197,7 +197,15 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
           <div className="flex justify-between items-center">
             <div className=" ring-0 w-fit px-2 py-1 text-4xl">Guides</div>
           </div>
-          <Carousel guides={guides} />
+          <div className="relative">
+            <div className="opacity-0">
+              <Carousel guides={guides} />
+            </div>
+            <div className="absolute top-2 left-0 w-full h-full bg-black/60 backdrop-blur-sm z-10"></div>
+            <p className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] text-center w-fit px-10 py-4 border-[1px] border-gray-500 z-20">
+              Guides coming soon...
+            </p>
+          </div>
         </div>
         <div className="flex gap-3 flex-col-reverse md:flex-row">
           <div className="flex flex-1 gap-3">
@@ -225,7 +233,7 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <Menu.Items className="origin-top-right overflow-hidden absolute right-0 mt-2 p-2 w-[350px] rounded-lg shadow-lg bg-black/70 backdrop-blur-md border border-gray-400 ring-1 ring-black ring-opacity-5 z-10">
+                    <Menu.Items className="origin-top-right overflow-hidden absolute right-0 mt-3 p-2 w-[350px] rounded-lg shadow-lg bg-black/70 backdrop-blur-md border border-gray-400 ring-1 ring-black ring-opacity-5 z-10">
                       <div
                         role="menu"
                         aria-orientation="vertical"
@@ -268,14 +276,18 @@ const PrivacyToolsSection: React.FC<PrivacyToolsSectionProps> = ({
         </div>
       </div>
       <div className="space-y-3">
-        {filteredTools.map((tool: any) => (
-          <ToolTableCard
-            key={tool.fields.id}
-            tool={tool}
-            handleSelect={handleToolSelect}
-            getIcons={getPlatformIcons}
-          />
-        ))}
+        {filteredTools.length > 0 ? (
+          filteredTools.map((tool: any) => (
+            <ToolTableCard
+              key={tool.fields.id}
+              tool={tool}
+              handleSelect={handleToolSelect}
+              getIcons={getPlatformIcons}
+            />
+          ))
+        ) : (
+          <p className="text-white text-center mt-20">No results found.</p>
+        )}
         <div ref={loader} />
         {loadingMore && <WaveLoader />}
       </div>

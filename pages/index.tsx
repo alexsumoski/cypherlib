@@ -53,35 +53,36 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
           >
             THE <br /> CYPHERPUNK <br /> MANIFESTO
           </motion.h2>
-          <div className="flex flex-col ms-auto w-full md:w-3/4 ">
-            <div className="relative overflow-visible transition-all duration-500 ease-in-out">
-              <motion.h3
-                initial={{ x: 50, opacity: 0.2 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.3 }}
-                className="text-right break-all leading-tall absolute tracking-ultra-wide text-sm md:text-md md:tracking-mega-wide"
-              >
-                PRIVACY IS NECESSARY
-              </motion.h3>
-              <ParagraphsNavigator />
-            </div>
+          <div className="flex flex-row ms-auto w-full ">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               transition={{ duration: 1.0 }}
               variants={imageVariants}
-              className="absolute left-0 hidden md:flex"
+              className="hidden lg:block mt-8"
             >
               <Image
                 src="/art.png"
                 alt="Art"
-                width={500}
-                height={400}
-                className="-translate-x-[40%] "
+                width={900}
+                height={600}
+                className="-translate-x-[10%]"
+                objectFit="contain"
               />
             </motion.div>
+            <div className="relative overflow-visible transition-all duration-500 ease-in-out w-full lg:w-full">
+              <motion.h3
+                initial={{ x: 50, opacity: 0.2 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.3 }}
+                className="text-right whitespace-nowrap leading-tall absolute tracking-ultra-wide text-sm md:text-md md:tracking-mega-wide"
+              >
+                PRIVACY IS NECESSARY
+              </motion.h3>
+              <ParagraphsNavigator />
+            </div>
           </div>
         </div>
       </div>

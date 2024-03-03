@@ -410,7 +410,7 @@ a {
   height: 20px;
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  border-top-color: #ff6666;
+  border-top-color: white;
   animation: spin 0.6s ease-in-out infinite;
   -webkit-animation: spin 0.6s ease-in-out infinite;
 }
@@ -435,8 +435,8 @@ a {
 }
 
 .terminal-style {
-  text-shadow: 0 0 5px red;
-  color: #ff6666;
+  text-shadow: 0 0 5px rgb(255, 255, 255);
+  color: rgba(255, 255, 255);
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
   monospace;
 }
@@ -483,9 +483,9 @@ a {
 }
 
 .hydra {
-	box-shadow: 0 0 2px red, inset 0 0 2px red;
+	box-shadow: 0 0 2px white, inset 0 0 2px white;
 	padding: 2vw;
-	border: 0.2vw solid #ff6666;
+	border: 0.2vw solid white;
 	grid-row: 2/2;
 	grid-column: 2/2;
 }
@@ -575,16 +575,16 @@ p {
 
 @keyframes pulseGlow {
   0% {
-    box-shadow: 0 0 3px 2px #ff0000;
-    opacity: 0.1;
+    box-shadow: 0 0 3px 2px rgb(90, 158, 255);
+    opacity: 0.05;
   }
   50% {
-    box-shadow: 0 0 15px 5px #ff0000;
-    opacity: 0.2;
+    box-shadow: 0 0 15px 5px rgb(90, 158, 255);
+    opacity: 0.1;
   }
   100% {
-    box-shadow: 0 0 3px 2px #ff0000;
-    opacity: 0.1;
+    box-shadow: 0 0 3px 2px rgb(90, 158, 255);
+    opacity: 0.05;
   }
 }
 
@@ -609,11 +609,11 @@ p {
   top: 0;
   bottom: 0;
   width: 1px;
-  background-color: #ff6666; 
-  box-shadow: 0 0 5px 2px #ff0000;
+  background-color: white; 
+  box-shadow: 0 0 5px 2px white;
   opacity: 0.1;
   z-index: -1;
-  animation: pulseGlow 5s infinite ease-in-out;
+  animation: pulseGlow 6s infinite ease-in-out;
 }
 
 .grid-line-1 { left: 25%; }

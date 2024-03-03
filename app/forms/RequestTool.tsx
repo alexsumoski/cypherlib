@@ -15,7 +15,7 @@ const RequestTool: React.FC<RequestToolInterface> = ({ onClose }) => {
   const [toolName, setToolName] = useState("");
   const [category, setCategory] = useState("");
   const [website, setWebsite] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

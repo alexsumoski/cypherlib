@@ -47,12 +47,12 @@ const Carousel: React.FC<CarouselProps> = ({ guides }) => {
                 )}`}
                 legacyBehavior
               >
-                <a className="relative w-full h-64 block">
-                  <img
-                    className="w-full h-full object-cover rounded-lg border-[1px] border-white/30"
+                <a className="relative w-full h-52 block border-[1px] border-white/30">
+                  {/* <img
+                    className="w-full h-full object-cover rounded-lg border-[1px] "
                     src={guide.fields.heroImage?.fields.file.url}
                     alt={guide.fields.title}
-                  />
+                  /> */}
                   <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-end rounded-lg p-8">
                     <h3 className="text-white text-2xl font-bold text-shadow-large">
                       {guide.fields.title}

@@ -30,7 +30,7 @@ const Header: React.FC = () => {
 
   return (
     <motion.header
-      className="fixed top-0 left-0 right-0 w-full z-10 bg-transparent backdrop-blur-sm p-1"
+      className="fixed top-0 left-0 right-0 w-full z-50 bg-transparent backdrop-blur-sm p-1"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
