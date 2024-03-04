@@ -39,9 +39,32 @@ const IndexPage: React.FC<PageProps> = ({ cypherpunks, tools, guides }) => {
     <Container>
       <div className="flex flex-col w-full mt-[8%]">
         {/* <p className="text-white font-thin text-lg opacity-15">{script}</p> */}
-        <div className="h-[450px]">
+        {/* <div className="h-[450px]">
           <Boot />
-        </div>
+        </div> */}
+        <motion.div
+          className="text-left mt-20"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.h1
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.7 }}
+            className="text-6xl md:text-9xl font-thin"
+          >
+            CYPHERLIB
+          </motion.h1>
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.9 }}
+            className="text-2xl md:text-4xl ps-2 pt-3 font-thin"
+          >
+            The Cypherpunk Library
+          </motion.p>
+        </motion.div>{" "}
         <div className="flex flex-col min-h-full mt-[110px]"></div>
         <div className="text-left mt-60">
           <motion.h2
